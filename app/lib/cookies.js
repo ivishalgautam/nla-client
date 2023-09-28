@@ -6,10 +6,10 @@ export function setCookie(name, value, daysToExpire) {
 }
 
 export function getCookie(name) {
-  if (typeof window !== "undefined") {
-    return sessionStorage.getItem(name);
-  }
-  return null;
+  // if (typeof window !== "undefined") {
+  return sessionStorage.getItem(name);
+  // }
+  // return null;
 }
 
 export function checkCookie(name) {

@@ -2,8 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { adminRequest } from "@/app/lib/requestMethods";
-import { getCookie } from "@/app/lib/cookies";
+import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
 import Link from "next/link";
 import { FaFileImport } from "react-icons/fa";
 import { RxCrossCircled } from "react-icons/rx";
@@ -38,18 +37,19 @@ export default function CreateStudentPage() {
         console.log(error);
       }
     })();
-
-    (async function () {
-      try {
-        const resp = await adminRequest.get("/tests");
-        setOlympiadTests(
-          resp.data.filter((item) => item.test_type === "olympiad")
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    })();
   }, []);
+
+  async function getFilteredTests(grade, subject) {
+    try {
+      const resp = await publicRequest.get(
+        `/tests/filter?grade=${grade}&subject=${subject}`
+      );
+      setOlympiadTests(resp.data);
+      console.log(resp.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -104,6 +104,10 @@ export default function CreateStudentPage() {
   useEffect(() => {
     setOlympiadTestsOptions(olympiadTests);
   }, [olympiadTests]);
+
+  useEffect(() => {
+    getFilteredTests(inputVals.grade, inputVals.subject);
+  }, [inputVals.grade, inputVals.subject]);
 
   return (
     <section>

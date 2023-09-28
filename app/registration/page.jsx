@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
-import { getCookie } from "@/app/lib/cookies";
+import { publicRequest } from "@/app/lib/requestMethods";
 import Image from "next/image";
 import registration from "../../public/registration.png";
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function Registration() {
   const [inputVals, setInputVals] = useState({
@@ -20,29 +20,18 @@ export default function Registration() {
     subject: "",
     grade: "",
     package: "",
-    test_assigned: "",
+    test_assigned: [],
   });
   const [grades, setGrades] = useState([]);
   const [olympiadTests, setOlympiadTests] = useState([]);
+  const [olympiadTestsOptions, setOlympiadTestsOptions] = useState([]);
+  const [selectedTests, setSelectedTests] = useState([]);
 
   useEffect(() => {
     (async function () {
       try {
         const resp = await publicRequest.get("/grades");
         setGrades(resp.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-
-    (async function () {
-      try {
-        const resp = await publicRequest.get("/tests", {
-          headers: { Authorization: `Bearer ${getCookie("token")}` },
-        });
-        setOlympiadTests(
-          resp.data.filter((item) => item.test_type === "olympiad")
-        );
       } catch (error) {
         console.log(error);
       }
@@ -70,9 +59,58 @@ export default function Registration() {
 
   function handleOnChange(e) {
     const { name, value } = e.target;
+    if (name === "test_assigned") {
+      setInputVals((prev) => ({
+        ...prev,
+        [name]: [...prev[name], parseInt(value)],
+      }));
+      return;
+    }
     setInputVals((prev) => ({ ...prev, [name]: value }));
   }
-  console.log(inputVals);
+
+  async function getFilteredTests(grade, subject) {
+    try {
+      const resp = await publicRequest.get(
+        `/tests/filter?grade=${grade}&subject=${subject}`
+      );
+      setOlympiadTests(resp.data);
+      console.log(resp.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleSelectTest = useCallback(() => {
+    setSelectedTests(
+      olympiadTests?.filter((item) => inputVals.test_assigned.includes(item.id))
+    );
+
+    setOlympiadTestsOptions(
+      olympiadTests?.filter(
+        (item) => !inputVals.test_assigned.includes(item.id)
+      )
+    );
+  }, [inputVals.test_assigned, olympiadTests]);
+
+  function handleDeleteOption(id) {
+    setInputVals((prev) => ({
+      ...prev,
+      test_assigned: inputVals.test_assigned.filter((item) => item !== id),
+    }));
+  }
+
+  useEffect(() => {
+    handleSelectTest();
+  }, [inputVals.test_assigned, handleSelectTest]);
+
+  useEffect(() => {
+    setOlympiadTestsOptions(olympiadTests);
+  }, [olympiadTests]);
+
+  useEffect(() => {
+    getFilteredTests(inputVals.grade, inputVals.subject);
+  }, [inputVals.grade, inputVals.subject]);
 
   return (
     <section className="p-8 flex items-center justify-center h-full">
@@ -92,7 +130,7 @@ export default function Registration() {
                 name="subject"
                 id="subject"
                 onChange={handleOnChange}
-                className="my-input"
+                className="my-input peer"
               >
                 <option value="abacus">Abacus</option>
                 <option value="vedic">Vedic</option>
@@ -152,17 +190,30 @@ export default function Registration() {
             {/* test assigned */}
             {inputVals.package === "polympiad" ||
             inputVals.package === "olympiad" ? (
-              <div className="relative flex flex-col justify-end">
+              <div className="relative flex flex-col justify-end col-span-3">
+                <div className="col-span-3 flex flex-wrap gap-2 py-4 absolute left-3 top-3">
+                  {selectedTests.map((item) => (
+                    <span
+                      key={item.id}
+                      className="bg-primary text-sm text-white p-1 px-2 rounded"
+                    >
+                      {item.name}
+                      <RxCrossCircled
+                        className="inline ml-2"
+                        size={20}
+                        onClick={() => handleDeleteOption(item.id)}
+                      />
+                    </span>
+                  ))}
+                </div>
                 <select
                   name="test_assigned"
                   id="test_assigned"
                   onChange={handleOnChange}
                   className="my-input peer"
                 >
-                  <option disabled defaultValue>
-                    Select package
-                  </option>
-                  {olympiadTests?.map((test) => {
+                  <option hidden>Select package</option>
+                  {olympiadTestsOptions?.map((test) => {
                     return (
                       <option key={test.id} value={test.id}>
                         {test.name}

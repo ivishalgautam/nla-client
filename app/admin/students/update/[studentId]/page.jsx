@@ -2,7 +2,7 @@
 import { getCookie } from "@/app/lib/cookies";
 import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import { RxCrossCircled } from "react-icons/rx";
@@ -70,6 +70,19 @@ export default function StudentUpdate({ params: { studentId } }) {
     }
   };
 
+  async function getFilteredTests(grade, subject) {
+    console.log("object");
+    try {
+      const resp = await publicRequest.get(
+        `/tests/filter?grade=${grade}&subject=${subject}`
+      );
+      setOlympiadTests(resp.data);
+      console.log(resp.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     // get students
     (async function () {
@@ -118,7 +131,7 @@ export default function StudentUpdate({ params: { studentId } }) {
     }
   }, [inputVals.package]);
 
-  function handleSelectTest() {
+  const handleSelectTest = useCallback(() => {
     setSelectedTests(
       olympiadTests?.filter((item) =>
         inputVals?.test_assigned?.map((i) => parseInt(i)).includes(item.id)
@@ -131,9 +144,7 @@ export default function StudentUpdate({ params: { studentId } }) {
           !inputVals?.test_assigned?.map((i) => parseInt(i)).includes(item.id)
       )
     );
-
-    // console.log({ selectedTests });
-  }
+  }, [inputVals.test_assigned, olympiadTests]);
 
   function handleDeleteOption(id) {
     setInputVals((prev) => ({
@@ -151,6 +162,10 @@ export default function StudentUpdate({ params: { studentId } }) {
   useEffect(() => {
     setOlympiadTestsOptions(olympiadTests);
   }, [olympiadTests]);
+
+  useEffect(() => {
+    getFilteredTests(inputVals.grade, inputVals.subject);
+  }, [inputVals.grade, inputVals.subject]);
 
   // console.log({ inputVals });
 
