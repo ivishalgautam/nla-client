@@ -10,6 +10,7 @@ export default function Page({ params: { testId } }) {
   const router = useRouter;
   const [questionStates, setQuestionStates] = useState([
     {
+      heading: "",
       values: {
         value1: "",
         value2: "",
@@ -20,6 +21,7 @@ export default function Page({ params: { testId } }) {
       answer: "",
     },
   ]);
+  console.log(questionStates);
 
   async function handleFormSubmit(e) {
     e.preventDefault();

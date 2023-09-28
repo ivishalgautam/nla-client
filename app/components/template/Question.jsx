@@ -33,6 +33,18 @@ const Question = ({ questionStates, setQuestionStates }) => {
     });
   };
 
+  const handleHeadingInputChange = (e, index) => {
+    const { value } = e.target;
+    setQuestionStates((prevStates) => {
+      const updatedStates = [...prevStates];
+      updatedStates[index] = {
+        ...updatedStates[index],
+        heading: value,
+      };
+      return updatedStates;
+    });
+  };
+
   const handleAddQuestion = () => {
     if (questionStates.length >= 100)
       return toast.error("You can not add more than 100 questions!");
@@ -40,6 +52,7 @@ const Question = ({ questionStates, setQuestionStates }) => {
     setQuestionStates((prevStates) => [
       ...prevStates,
       {
+        heading: "",
         values: {
           value1: "",
           value2: "",
@@ -61,7 +74,7 @@ const Question = ({ questionStates, setQuestionStates }) => {
       {questionStates.map((questionState, index) => (
         <div key={index} className="question-box">
           <div className="flex justify-between items-center">
-            <p className="">{`Question No. - ${index + 1}`}</p>
+            <p className="">{`Q-${index + 1}`}</p>
             <button
               type="button"
               className="bg-rose-500 p-2 rounded"
@@ -70,6 +83,20 @@ const Question = ({ questionStates, setQuestionStates }) => {
               <AiOutlineDelete className="text-white" />
             </button>
           </div>
+          <div className="inputGroup mb-0">
+            <input
+              type="text"
+              id={`heading${index}`}
+              name={`heading${index}`}
+              value={questionState.heading}
+              className=""
+              placeholder=""
+              autoComplete="off"
+              onChange={(e) => handleHeadingInputChange(e, index)}
+            />
+            <label htmlFor={`heading${index}`}>Heading</label>
+          </div>
+          <hr />
           {Object.keys(questionState.values).map((key) => (
             <div className="inputGroup" key={key}>
               <input
@@ -78,7 +105,7 @@ const Question = ({ questionStates, setQuestionStates }) => {
                 onChange={(e) => handleQuestionInputChange(e, index)}
                 type="text"
                 required=""
-                autocomplete="off"
+                autoComplete="off"
               />
               <label htmlFor={key}>Value</label>
             </div>
