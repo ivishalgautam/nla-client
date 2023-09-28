@@ -65,6 +65,7 @@ export default function Page({ params: { testId } }) {
         }
         data.forEach((data) => {
           const convertedData = {
+            heading: data.heading,
             values: {
               value1: data.question[0] || "",
               value2: data.question[1] || "",
