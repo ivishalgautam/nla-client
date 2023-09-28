@@ -29,12 +29,14 @@ export default function LoginPage() {
 
       if (status === 200) {
         toast.success("Logged in successfully");
-        sessionStorage.setItem("email", data.student.email);
-        sessionStorage.setItem("fullname", data.student.fullname);
-        sessionStorage.setItem("student_id", data.student.id);
-        sessionStorage.setItem("package", data.student.package);
-        sessionStorage.setItem("grade", data.student.grade);
-        sessionStorage.setItem("token", data.access_token);
+
+        setCookie("email", data.student.email, 2);
+        setCookie("fullname", data.student.fullname, 2);
+        setCookie("student_id", data.student.id, 2);
+        setCookie("package", data.student.package, 2);
+        setCookie("grade", data.student.grade, 2);
+        setCookie("student_token", data.access_token, 2);
+
         router.push("/student/profile");
       }
 

@@ -32,8 +32,8 @@ export default function LoginPage() {
 
       if (status === 200) {
         toast.success("Logged in successfully");
-        sessionStorage.setItem("email", data.email);
-        sessionStorage.setItem("token", data.access_token);
+        setCookie("email", data.email, 2);
+        setCookie("admin_token", data.access_token, 2);
 
         if (callback) {
           return router.replace(callback);

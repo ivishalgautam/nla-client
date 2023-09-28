@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { Poppins } from "next/font/google";
 import { IoIosArrowBack } from "react-icons/io";
 import { authRequest } from "../lib/requestMethods";
-import useSessionStorage from "../hooks/useSessionStorage";
 const poppins = Poppins({
   weight: ["400", "600", "700", "800", "900"],
   subsets: ["latin"],
@@ -16,7 +15,7 @@ const poppins = Poppins({
 export default function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
-    const token = getCookie("token");
+    const token = getCookie("student_token");
     if (!token) {
       clearAllCookies();
       return router.push("/auth/login/student");

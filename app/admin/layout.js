@@ -17,7 +17,7 @@ const poppins = Poppins({
 export default function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
-    const token = getCookie("token");
+    const token = getCookie("admin_token");
     if (!token) {
       router.push("/auth/login/admin");
     } else {
@@ -27,8 +27,9 @@ export default function AdminLayout({ children }) {
         })
         .then((resp) => console.log({ data: resp.data }))
         .catch((error) => {
+          console.log(error);
           clearAllCookies();
-          return router.replace("/auth/login/admin");
+          router.replace("/auth/login/admin");
         });
     }
   }, [router]);
