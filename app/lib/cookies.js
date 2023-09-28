@@ -5,12 +5,6 @@ export function setCookie(name, value, daysToExpire) {
   document.cookie = `${name}=${value}; ${expires}; path=/`;
 }
 
-export function getCookie(name) {
-  if (typeof window !== "undefined") {
-    return sessionStorage.getItem(name);
-  }
-  return null;
-}
 // export function getCookie(name) {
 //   if (typeof window !== "undefined") {
 //     return sessionStorage.getItem(name);

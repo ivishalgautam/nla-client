@@ -6,7 +6,6 @@ import { clearAllCookies, getCookie } from "../lib/cookies";
 import { IoIosArrowBack } from "react-icons/io";
 
 import { Poppins } from "next/font/google";
-import useSessionStorage from "../hooks/useSessionStorage";
 import { authRequest } from "../lib/requestMethods";
 const poppins = Poppins({
   weight: ["400", "600", "700", "800", "900"],
