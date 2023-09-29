@@ -5,7 +5,6 @@ import { publicRequest } from "@/app/lib/requestMethods";
 import { formatTime } from "@/app/lib/time";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
 
 const Page = ({ params: { testId } }) => {
   const [shouldSubmit, setShouldSubmit] = useState(false);
@@ -19,6 +18,7 @@ const Page = ({ params: { testId } }) => {
   const [userAnswers, setUserAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  console.log(userAnswers);
 
   async function handleSubmitTest() {
     console.log(points.totalPoints);
@@ -47,6 +47,7 @@ const Page = ({ params: { testId } }) => {
         student_attempted: attempted,
         total_questions: questions.length,
         grade: calculateGrade(TP, points.totalPoints, questions.length),
+        user_answers: Object.values(userAnswers),
       });
       if (resp.status === 200) {
         router.replace(`/student/result/${getCookie("student_id")}`);
@@ -152,22 +153,29 @@ const Page = ({ params: { testId } }) => {
         ) : questions.length <= 0 ? (
           <div>No questions for you</div>
         ) : (
-          questions?.map(({ id, question }) => {
+          questions?.map(({ id, question, heading }, key) => {
             return (
               <div
                 key={id}
-                className="bg-white shadow rounded-md p-4 flex flex-col items-end justify-end"
+                className="bg-white shadow rounded-md p-4 flex flex-col items-end justify-between"
               >
-                {question.map((item, key) => {
-                  return (
-                    <div
-                      className="flex justify-end text-lg font-bold"
-                      key={key}
-                    >
-                      {question.every((num) => num >= 0) ? `+${item}` : item}
-                    </div>
-                  );
-                })}
+                <div className="w-full border-b pb-1">
+                  <p className="text-start text-sm font-semibold">
+                    Q{key + 1}. {heading}
+                  </p>
+                </div>
+                <div className="mt-auto">
+                  {question.map((item, key) => {
+                    return (
+                      <div
+                        className="flex justify-end text-lg font-bold"
+                        key={key}
+                      >
+                        {`${item > 0 ? "+" : ""}${item}`}
+                      </div>
+                    );
+                  })}
+                </div>
                 <div>
                   <input
                     type="text"

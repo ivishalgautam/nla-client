@@ -1,4 +1,6 @@
 "use client";
+import ResultCard from "@/app/components/template/ResultCard";
+import ResultCardMulti from "@/app/components/template/ResultCardMulti";
 import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
 import React, { useEffect, useState } from "react";
@@ -127,10 +129,10 @@ export default function StudentResultPage() {
           Search
         </button>
       </div>
-      <div className="rounded">
-        <div className="rounded-lg overflow-hidden">
-          <DataTable columns={columns} data={results} pagination />
-        </div>
+      <div className="rounded grid grid-cols-3 gap-4">
+        {results?.map((result) => (
+          <ResultCardMulti key={result.id} result={result} />
+        ))}
       </div>
     </section>
   );

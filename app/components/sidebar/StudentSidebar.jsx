@@ -8,6 +8,8 @@ import { IoAnalyticsOutline } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { clearAllCookies } from "@/app/lib/cookies";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
+import Logo from "../../../public/nla-logo.jpeg";
 import useSessionStorage from "@/app/hooks/useSessionStorage";
 
 const navList = [
@@ -50,7 +52,15 @@ const StudentSidebar = () => {
   return (
     <aside className="w-full h-full bg-white shadow text-gray-900 space-y-4 p-4">
       <div>
-        <h2 className="font-bold text-4xl text-center">logo</h2>
+        <figure>
+          <Image
+            src={Logo}
+            alt="logo"
+            width={100}
+            height={100}
+            className="rounded-full mx-auto"
+          />
+        </figure>
       </div>
       <div>
         <ul className="px-4 space-y-3">

@@ -7,6 +7,8 @@ import { CgNotes } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { usePathname, useRouter } from "next/navigation";
 import { clearAllCookies } from "@/app/lib/cookies";
+import Image from "next/image";
+import Logo from "../../../public/nla-logo.jpeg";
 
 const navList = [
   {
@@ -47,7 +49,15 @@ const AdminSidebar = () => {
   return (
     <aside className="w-full h-full bg-white shadow text-gray-900 space-y-4 p-4">
       <div>
-        <h2 className="font-bold text-4xl text-center">logo</h2>
+        <figure>
+          <Image
+            src={Logo}
+            alt="logo"
+            width={100}
+            height={100}
+            className="rounded-full mx-auto"
+          />
+        </figure>
       </div>
       <div>
         <ul className="space-y-1">

@@ -10,22 +10,22 @@ import { authRequest } from "../lib/requestMethods";
 const poppins = Poppins({
   weight: ["400", "600", "700", "800", "900"],
   subsets: ["latin"],
-  // display: "swap",
 });
 
 export default function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
-    const token = getCookie("admin_token");
-    if (!token) {
+    if (!getCookie("admin_token")) {
       router.push("/auth/login/admin");
+      alert("token not found");
     } else {
       authRequest
         .get("/validate", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         })
         .then((resp) => console.log({ data: resp.data }))
         .catch((error) => {
+          alert("invalid token");
           console.log(error);
           clearAllCookies();
           router.replace("/auth/login/admin");
