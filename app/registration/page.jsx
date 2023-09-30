@@ -6,6 +6,7 @@ import { publicRequest } from "@/app/lib/requestMethods";
 import Image from "next/image";
 import registration from "../../public/registration.png";
 import { RxCrossCircled } from "react-icons/rx";
+import { getCookie } from "../lib/cookies";
 
 export default function Registration() {
   const [inputVals, setInputVals] = useState({

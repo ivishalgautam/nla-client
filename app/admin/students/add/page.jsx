@@ -6,6 +6,7 @@ import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
 import Link from "next/link";
 import { FaFileImport } from "react-icons/fa";
 import { RxCrossCircled } from "react-icons/rx";
+import { getCookie } from "@/app/lib/cookies";
 
 export default function CreateStudentPage() {
   const [inputVals, setInputVals] = useState({

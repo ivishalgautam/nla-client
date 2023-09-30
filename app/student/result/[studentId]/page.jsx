@@ -12,6 +12,7 @@ import {
 import Pdf from "@/app/components/template/Pdf";
 import useSessionStorage from "@/app/hooks/useSessionStorage";
 import ResultCard from "@/app/components/template/ResultCard";
+import { getCookie } from "@/app/lib/cookies";
 
 export default function ResultPage({ params: { studentId } }) {
   const [result, setResult] = useState([]);
@@ -20,7 +21,7 @@ export default function ResultPage({ params: { studentId } }) {
   useEffect(() => {
     (async function () {
       try {
-        const resp = await publicRequest.get(`/results/${studentId}`,{
+        const resp = await publicRequest.get(`/results/${studentId}`, {
           headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         });
         setResult(resp.data);

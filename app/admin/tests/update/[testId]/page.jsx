@@ -3,8 +3,6 @@ import { adminRequest } from "@/app/lib/requestMethods";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import Datetime from "react-datetime";
-import "react-datetime/css/react-datetime.css";
 import { getCookie } from "@/app/lib/cookies";
 
 export default function UpdateTestPage({ params: { testId } }) {

@@ -6,20 +6,24 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import DataTable from "react-data-table-component";
 import { formatDateToIST } from "@/app/lib/time";
+import { getCookie } from "@/app/lib/cookies";
 
 export default function TestTable() {
   const [tests, setTests] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   async function getTests() {
+    console.log("hello");
     setIsLoading(true);
     try {
       const resp = await adminRequest.get("/tests", {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
+      console.log(resp.data);
       setTests(resp.data);
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
     }
   }

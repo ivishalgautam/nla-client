@@ -1,4 +1,5 @@
 "use client";
+import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
