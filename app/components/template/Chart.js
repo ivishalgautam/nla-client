@@ -10,8 +10,8 @@ import {
   Legend,
 } from "chart.js/auto";
 
-const Chart = ({ points }) => {
-  console.log(points);
+const Chart = ({ points, dates }) => {
+  console.log({ points, dates });
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [],
@@ -20,10 +20,10 @@ const Chart = ({ points }) => {
   // Sample data for the chart
   useEffect(() => {
     setChartData({
-      labels: [...points],
+      labels: [...dates],
       datasets: [
         {
-          label: "Example Data",
+          label: "Data",
           backgroundColor: "rgba(75,192,192,0.2)",
           borderColor: "rgba(75,192,192,1)",
           borderWidth: 1,
@@ -37,12 +37,11 @@ const Chart = ({ points }) => {
     setChartOptions({
       scales: {
         y: {
-          type: "linear", // Use 'linear' scale for the y-axis if needed
+          type: "linear",
           beginAtZero: true,
         },
         x: {
-          type: "category", // Use 'category' scale for the x-axis
-          // Configure the x-axis as needed
+          type: "category",
         },
       },
     });

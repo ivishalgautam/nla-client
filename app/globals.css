@@ -193,4 +193,9 @@
   .custum-file-upload input {
     display: none;
   }
+
+  .link-disabled {
+    pointer-events: none;
+    cursor: not-allowed !important;
+  }
 }

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { getCookie } from "@/app/lib/cookies";
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function UpdateTestPage({ params: { testId } }) {
   const router = useRouter();
@@ -45,6 +46,7 @@ export default function UpdateTestPage({ params: { testId } }) {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
       setInstructions(resp.data.instructions);
+      console.log(resp.data);
       for (const [key, value] of Object.entries(resp.data)) {
         if (key in inputs) {
           setInputs((prev) => ({ ...prev, [key]: value }));
@@ -139,6 +141,7 @@ export default function UpdateTestPage({ params: { testId } }) {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             />
             <label htmlFor="name" className="my-label">
               Test Name
@@ -158,8 +161,11 @@ export default function UpdateTestPage({ params: { testId } }) {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
-              <option hidden></option>
+              <option hidden disabled value="" selected>
+                Select grade
+              </option>
               {grades?.map((grade) => {
                 return (
                   <option key={grade.id} value={grade.id}>
@@ -186,8 +192,11 @@ export default function UpdateTestPage({ params: { testId } }) {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
-              <option hidden></option>
+              <option hidden disabled value="" selected>
+                Select subject
+              </option>
               <option value="abacus">Abacus</option>
               <option value="vedic">Vedic</option>
             </select>
@@ -209,8 +218,11 @@ export default function UpdateTestPage({ params: { testId } }) {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
-              <option hidden></option>
+              <option hidden disabled value="" selected>
+                Select package
+              </option>
               <option value="practice">Practice</option>
               <option value="olympiad">Olympiad</option>
               <option value="eligibility">Eligibility</option>
@@ -224,10 +236,11 @@ export default function UpdateTestPage({ params: { testId } }) {
           <div className="relative flex flex-col justify-end">
             <input
               type="date"
-              value={inputs.start_time}
+              value={new Date(inputs.start_time).toISOString().split("T")[0]}
               onChange={(e) => handleDateChange(e, "start")}
               className="bg-white my-input mt-2"
-              min={new Date()}
+              min={new Date().toISOString().split("T")[0]}
+              required
             />
             <label htmlFor="start_time" className="my-label">
               Start time
@@ -238,9 +251,11 @@ export default function UpdateTestPage({ params: { testId } }) {
           <div className="relative flex flex-col justify-end">
             <input
               type="date"
-              value={inputs.end_time}
+              value={new Date(inputs.end_time).toISOString().split("T")[0]}
               onChange={(e) => handleDateChange(e, "end")}
               className="bg-white my-input mt-2"
+              min={new Date().toISOString().split("T")[0]}
+              required
             />
             <label htmlFor="end_time" className="my-label">
               End time
@@ -260,6 +275,7 @@ export default function UpdateTestPage({ params: { testId } }) {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
               <option value="5 minute">5 Minute</option>
               <option value="10 minute">10 Minute</option>
@@ -316,7 +332,23 @@ export default function UpdateTestPage({ params: { testId } }) {
           <div className="col-span-3">
             <ul className="list-decimal pl-5">
               {instructions?.map((instruction, key) => {
-                return <li key={key}>{instruction}</li>;
+                return (
+                  <li key={key}>
+                    <div className="flex items justify-start gap-1">
+                      <span>{instruction}</span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setInstructions((prev) =>
+                            prev.filter((i, ind) => ind !== key)
+                          )
+                        }
+                      >
+                        <RxCrossCircled className="text-rose-500" size={20} />
+                      </button>
+                    </div>
+                  </li>
+                );
               })}
             </ul>
           </div>

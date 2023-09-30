@@ -4,7 +4,6 @@ import ResultCardMulti from "@/app/components/template/ResultCardMulti";
 import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 
 export default function StudentResultPage() {
   const [results, setResults] = useState([]);
@@ -52,50 +51,6 @@ export default function StudentResultPage() {
     }
   }
 
-  const columns = [
-    {
-      name: "Id",
-      selector: (row, key) => key + 1,
-      width: "4rem",
-      sortable: true,
-    },
-    {
-      name: "Student Name",
-      selector: (row) => row.fullname,
-      sortable: true,
-      width: "10rem",
-    },
-    {
-      name: "Test Name",
-      selector: (row) => row.test_name,
-      sortable: true,
-      width: "7rem",
-    },
-    {
-      name: "Questions Attempted",
-      selector: (row) => row.student_attempted,
-      width: "10rem",
-    },
-    {
-      name: "Total Questions",
-      selector: (row) => row.total_questions,
-      width: "10rem",
-    },
-    {
-      name: "Student Points",
-      selector: (row) => row.student_points,
-    },
-    {
-      name: "Total Points",
-      selector: (row) => row.total_points,
-    },
-    {
-      name: "Created On",
-      selector: (row) => new Date(row.created_at).toDateString(),
-      width: "10rem",
-    },
-  ];
-
   return (
     <section>
       <h2 className="section-heading">Results</h2>
@@ -133,9 +88,9 @@ export default function StudentResultPage() {
           Search
         </button>
       </div>
-      <div className="rounded grid grid-cols-3 gap-4">
+      <div className="rounded grid grid-cols-3 gap-y-8">
         {results?.map((result) => (
-          <ResultCardMulti key={result.id} result={result} />
+          <ResultCardMulti key={result.id} result={result} path={"student"} />
         ))}
       </div>
     </section>

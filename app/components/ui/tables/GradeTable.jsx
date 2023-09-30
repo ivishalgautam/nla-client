@@ -28,6 +28,19 @@ export default function LevelTable() {
     getGrades();
   }, []);
 
+  function handleSearch(e) {
+    const inputValue = e.target.value.toLowerCase();
+
+    if (inputValue === "") {
+      getGrades();
+    } else {
+      const data = grades.filter((item) =>
+        item.name.toLowerCase().includes(inputValue.toLowerCase())
+      );
+      setGrades(data);
+    }
+  }
+
   const handleDelete = async (id) => {
     const confirmation = confirm("Please confirm to delete.");
 
@@ -67,13 +80,29 @@ export default function LevelTable() {
 
   return (
     <>
-      <div className="mb-4 flex justify-end">
-        <Link
-          href={`/admin/grades/add`}
-          className="bg-emerald-500 rounded-md py-1 px-3 text-white"
-        >
-          Add Grade
-        </Link>
+      <div className="mb-4 flex justify-between">
+        <div>
+          <div className="relative">
+            <input
+              type="text"
+              onChange={(e) => handleSearch(e)}
+              placeholder="search"
+              name="search"
+              className="my-input peer"
+            />
+            <label htmlFor="search" className="my-label">
+              Search
+            </label>
+          </div>
+        </div>
+        <div>
+          <Link
+            href={`/admin/grades/add`}
+            className="bg-emerald-500 rounded-md py-1 px-3 text-white"
+          >
+            Add Grade
+          </Link>
+        </div>
       </div>
       <div className="rounded-lg overflow-hidden">
         <DataTable

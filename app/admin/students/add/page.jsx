@@ -142,7 +142,11 @@ export default function CreateStudentPage() {
               id="subject"
               onChange={handleOnChange}
               className="my-input"
+              required
             >
+              <option hidden disabled value="" selected>
+                Select subject
+              </option>
               <option value="abacus">Abacus</option>
               <option value="vedic">Vedic</option>
             </select>
@@ -158,8 +162,11 @@ export default function CreateStudentPage() {
               id="grade"
               onChange={handleOnChange}
               className="my-input"
+              required
             >
-              <option disabled>Select grade</option>
+              <option hidden disabled value="" selected>
+                Select grade
+              </option>
               {grades.length <= 0 ? (
                 <option disabled>No grade found</option>
               ) : (
@@ -184,8 +191,9 @@ export default function CreateStudentPage() {
               id="package"
               onChange={handleOnChange}
               className="my-input peer"
+              required
             >
-              <option disabled defaultValue>
+              <option hidden disabled value="" selected>
                 Select package
               </option>
               <option value="dashboard">Dashboard</option>
@@ -248,6 +256,7 @@ export default function CreateStudentPage() {
               placeholder=""
               autoComplete="off"
               onChange={handleOnChange}
+              required
             />
             <label htmlFor="fullname" className="my-label">
               Fullname
@@ -261,7 +270,11 @@ export default function CreateStudentPage() {
               id="gender"
               className="my-input peer"
               onChange={handleOnChange}
+              required
             >
+              <option hidden disabled value="" selected>
+                Select gender
+              </option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -280,6 +293,7 @@ export default function CreateStudentPage() {
               placeholder=""
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="email" className="my-label">
               Email
@@ -296,6 +310,7 @@ export default function CreateStudentPage() {
               placeholder=""
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="phone" className="my-label">
               Phone
@@ -312,6 +327,7 @@ export default function CreateStudentPage() {
               placeholder=""
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="guardian_name" className="my-label">
               Guardian Name
@@ -328,6 +344,7 @@ export default function CreateStudentPage() {
               placeholder=""
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="dob" className="my-label">
               Date Of Birth
@@ -344,6 +361,7 @@ export default function CreateStudentPage() {
               placeholder=""
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="city" className="my-label">
               City
@@ -360,6 +378,7 @@ export default function CreateStudentPage() {
               placeholder=""
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="pincode" className="my-label">
               Pincode

@@ -150,11 +150,22 @@ export default function TestTable() {
       name: "Actions",
       selector: (row) => (
         <div className="flex items-center justify-center gap-2">
-          <Link
-            href={`/admin/questions/add/${row.id}`}
-            className="bg-primary rounded px-2 py-1 text-white"
-          >
-            Add questions
+          <Link href={`/admin/questions/add/${row.id}`} legacyBehavior>
+            <a
+              className={`${
+                new Date(row.start_time) < new Date() &&
+                row.is_published === true &&
+                row.total_questions === 100
+                  ? "link-disabled bg-rose-500"
+                  : "bg-primary"
+              }  rounded px-2 py-1 text-white`}
+            >
+              {new Date(row.start_time) < new Date() &&
+              row.is_published === true &&
+              row.total_questions === 100
+                ? "Not allowed"
+                : "Add questions"}
+            </a>
           </Link>
           <Link
             href={`/admin/tests/update/${row.id}`}

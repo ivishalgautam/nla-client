@@ -18,7 +18,7 @@ const Page = ({ params: { testId } }) => {
   const [userAnswers, setUserAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  console.log(userAnswers);
+  console.log({ answers, userAnswers });
 
   async function handleSubmitTest() {
     console.log(points.totalPoints);
@@ -33,7 +33,7 @@ const Page = ({ params: { testId } }) => {
         attempted++;
       }
 
-      if (answers[i] === parseInt(Object.values(userAnswers)[i])) {
+      if (String(answers[i]) === String(Object.values(userAnswers)[i])) {
         TP += 1;
       }
     }

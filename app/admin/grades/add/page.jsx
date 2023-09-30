@@ -47,6 +47,7 @@ export default function AddGradePage() {
             placeholder="Grade"
             autoComplete="off"
             ref={inputRef}
+            required
           />
           <label htmlFor="name" className="my-label">
             Grade

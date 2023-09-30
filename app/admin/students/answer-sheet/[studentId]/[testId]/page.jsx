@@ -1,6 +1,6 @@
 "use client";
 import { getCookie } from "@/app/lib/cookies";
-import { publicRequest } from "@/app/lib/requestMethods";
+import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -14,10 +14,10 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
   async function getAnserSheet(studentId, testId, createdAt) {
     setIsLoading(true);
     try {
-      const resp = await publicRequest.get(
+      const resp = await adminRequest.get(
         `/results/answerSheet/${studentId}/${testId}?t=${createdAt}`,
         {
-          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         }
       );
       setIsLoading(false);

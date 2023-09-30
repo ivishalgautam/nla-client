@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { getCookie } from "@/app/lib/cookies";
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function AddTestPage() {
   const router = useRouter();
@@ -40,6 +41,11 @@ export default function AddTestPage() {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
+
+    if (instructions.length <= 0) {
+      return toast.error("There must be atleast 1 instruction!");
+    }
+
     const resp = await adminRequest.post(
       "/tests",
       {
@@ -57,36 +63,11 @@ export default function AddTestPage() {
       }
     );
 
-    // console.log(resp.data);
     if (resp.status === 200) {
       toast.success("New test created");
       router.push("/admin/tests");
     }
   }
-
-  // function handleDateChange(e, type) {
-  //   if (type === "start") {
-  //     const date = new Date(e._d).toISOString();
-  //     setSelectedDate((prev) => ({
-  //       ...prev,
-  //       start: new Date(e._d).setSeconds(0),
-  //     }));
-  //     setInputs((prev) => ({
-  //       ...prev,
-  //       start_time: date,
-  //     }));
-  //   } else {
-  //     const date = new Date(e._d).toISOString();
-  //     setSelectedDate((prev) => ({
-  //       ...prev,
-  //       end: new Date(e._d).setSeconds(0),
-  //     }));
-  //     setInputs((prev) => ({
-  //       ...prev,
-  //       end_time: date,
-  //     }));
-  //   }
-  // }
 
   function handleDateChange(e, type) {
     console.log(e.target.value);
@@ -153,6 +134,7 @@ export default function AddTestPage() {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             />
             <label htmlFor="name" className="my-label">
               Test Name
@@ -171,8 +153,11 @@ export default function AddTestPage() {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
-              <option hidden></option>
+              <option hidden disabled value="" selected>
+                Select grade
+              </option>
               {grades?.map((grade) => {
                 return (
                   <option key={grade.id} value={grade.id}>
@@ -198,8 +183,11 @@ export default function AddTestPage() {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
-              <option hidden></option>
+              <option hidden disabled value="" selected>
+                Select subject
+              </option>
               <option value="abacus">Abacus</option>
               <option value="vedic">Vedic</option>
             </select>
@@ -220,8 +208,11 @@ export default function AddTestPage() {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
-              <option hidden></option>
+              <option hidden disabled value="" selected>
+                Select package
+              </option>
               <option value="practice">Practice</option>
               <option value="olympiad">Olympiad</option>
               <option value="eligibility">Eligibility</option>
@@ -239,6 +230,7 @@ export default function AddTestPage() {
               onChange={(e) => handleDateChange(e, "start")}
               className="bg-white my-input mt-2"
               min={new Date().toISOString().split("T")[0]}
+              required
             />
             <label htmlFor="start_time" className="my-label">
               Start time
@@ -253,6 +245,7 @@ export default function AddTestPage() {
               className="bg-white my-input mt-2"
               type="date"
               min={new Date().toISOString().split("T")[0]}
+              required
             />
             <label htmlFor="end_time" className="my-label">
               End time
@@ -271,7 +264,11 @@ export default function AddTestPage() {
                   [e.target.name]: e.target.value,
                 }))
               }
+              required
             >
+              <option hidden disabled value="" selected>
+                Select Duration
+              </option>
               <option value="5 minute">5 Minute</option>
               <option value="10 minute">10 Minute</option>
               <option value="15 minute">15 Minute</option>
@@ -324,10 +321,26 @@ export default function AddTestPage() {
           </div>
 
           {/* instruction map */}
-          <div className="col-span-3">
+          <div className="col-span-3 mt-4">
             <ul className="list-decimal pl-5">
               {instructions?.map((instruction, key) => {
-                return <li key={key}>{instruction}</li>;
+                return (
+                  <li key={key}>
+                    <div className="flex items justify-start gap-1">
+                      <span>{instruction}</span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setInstructions((prev) =>
+                            prev.filter((i, ind) => ind !== key)
+                          )
+                        }
+                      >
+                        <RxCrossCircled className="text-rose-500" size={20} />
+                      </button>
+                    </div>
+                  </li>
+                );
               })}
             </ul>
           </div>

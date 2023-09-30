@@ -208,7 +208,11 @@ export default function StudentUpdate({ params: { studentId } }) {
               onChange={handleOnChange}
               className="my-input peer"
               value={inputVals.subject}
+              required
             >
+              <option hidden disabled value="" selected>
+                Select subject
+              </option>
               <option value="abacus">Abacus</option>
               <option value="vedic">Vedic</option>
             </select>
@@ -225,8 +229,11 @@ export default function StudentUpdate({ params: { studentId } }) {
               onChange={handleOnChange}
               className="my-input peer"
               value={inputVals.grade}
+              required
             >
-              <option disabled>Select grade</option>
+              <option hidden disabled value="" selected>
+                Select grade
+              </option>
               {grades.length <= 0 ? (
                 <option disabled>Loading...</option>
               ) : (
@@ -252,8 +259,9 @@ export default function StudentUpdate({ params: { studentId } }) {
               onChange={handleOnChange}
               className="my-input peer"
               value={inputVals.package}
+              required
             >
-              <option disabled defaultValue>
+              <option hidden disabled value="" selected>
                 Select package
               </option>
               <option value="dashboard">Dashboard</option>
@@ -317,6 +325,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               autoComplete="off"
               value={inputVals.fullname}
               onChange={handleOnChange}
+              required
             />
             <label htmlFor="fullaname" className="my-label">
               Fullname
@@ -331,7 +340,11 @@ export default function StudentUpdate({ params: { studentId } }) {
               className="my-input peer"
               onChange={handleOnChange}
               value={inputVals.gender}
+              required
             >
+              <option hidden disabled value="" selected>
+                Select gender
+              </option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -351,6 +364,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               value={inputVals.email}
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="email" className="my-label">
               Email
@@ -368,6 +382,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               value={inputVals.phone}
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="phone" className="my-label">
               Phone
@@ -385,6 +400,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               value={inputVals.guardian_name}
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="guardian_name" className="my-label">
               Guardian Name
@@ -400,9 +416,9 @@ export default function StudentUpdate({ params: { studentId } }) {
               className="my-input peer"
               placeholder=""
               value={inputVals.dob.split("T")[0]}
-              //   min={new Date()}
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="dob" className="my-label">
               Date Of Birth
@@ -420,6 +436,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               value={inputVals.city}
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="city" className="my-label">
               City
@@ -437,6 +454,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               value={inputVals.pincode}
               onChange={handleOnChange}
               autoComplete="off"
+              required
             />
             <label htmlFor="pincode" className="my-label">
               Pincode

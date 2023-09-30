@@ -80,7 +80,7 @@ export default function ResultTable() {
     },
     {
       name: "Created On",
-      selector: (row) => formatDateToIST(row.created_at)(),
+      selector: (row) => formatDateToIST(row.created_at),
       width: "10rem",
     },
     {

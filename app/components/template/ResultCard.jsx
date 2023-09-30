@@ -6,7 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 export default function ResultCard({ result }) {
   const grade = result[result?.length - 1]?.grade;
   return (
-    <div className="bg-white shadow-md rounded-md p-4 max-w-[25rem] mx-auto">
+    <div className="bg-white shadow-md rounded-lg p-4 max-w-[25rem] mx-auto">
       <div className="grade">
         <div
           className={`${
@@ -43,16 +43,16 @@ export default function ResultCard({ result }) {
         </div>
         <div className="rounded-md shadow-sm p-2 text-sm font-semibold bg-lime-500 flex items-center justify-start gap-1">
           <AiOutlineCheckCircle size={20} />
-          <span>
-            Correct answer: {result[result?.length - 1]?.student_points}
-          </span>
+          <span>Correct : {result[result?.length - 1]?.student_points}</span>
         </div>
         <div className="rounded-md shadow-sm p-2 text-sm font-semibold bg-red-500 flex items-center justify-start gap-1">
           <RxCross2 size={20} />
           <span>
-            Wrong answers:{" "}
+            Wrong :
             {result[result?.length - 1]?.total_points -
-              result[result?.length - 1]?.student_points}
+              result[result?.length - 1]?.student_points -
+              (result[result?.length - 1]?.total_questions -
+                result[result?.length - 1]?.student_attempted)}
           </span>
         </div>
         <Link

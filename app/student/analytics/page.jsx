@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function AnalyticsPage() {
-  const [points, setPoints] = useState([]);
+  const [data, setData] = useState([]);
   const [date, setDate] = useState({
     startDate: null,
     endDate: null,
@@ -26,7 +26,12 @@ export default function AnalyticsPage() {
         headers: { Authorization: `Bearer ${getCookie("student_token")}` },
       });
       console.log(resp.data);
-      setPoints(resp.data.map((item) => item.student_points));
+      const filtered = resp.data.map((item) => ({
+        point: item.student_points,
+        date: new Date(item.created_at).toDateString(),
+      }));
+      console.log(filtered);
+      setData(filtered);
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +62,7 @@ export default function AnalyticsPage() {
       console.log(error);
     }
   }
+
   return (
     <section>
       <div className="mb-4 grid grid-cols-12 gap-4">
@@ -93,7 +99,10 @@ export default function AnalyticsPage() {
           Search
         </button>
       </div>
-      <Chart points={points} />
+      <Chart
+        points={data?.map((i) => i.point)}
+        dates={data?.map((i) => i.date)}
+      />
     </section>
   );
 }

@@ -1,4 +1,5 @@
 "use client";
+import ResultCardMulti from "@/app/components/template/ResultCardMulti";
 import { getCookie } from "@/app/lib/cookies";
 import { adminRequest } from "@/app/lib/requestMethods";
 import Link from "next/link";
@@ -132,7 +133,15 @@ export default function StudentResultTable({ params: { studentId } }) {
         </button>
       </div>
 
-      <DataTable columns={columns} data={results} pagination />
+      <div className="rounded grid grid-cols-3 gap-y-8">
+        {results?.map((result) => (
+          <ResultCardMulti
+            key={result.id}
+            result={result}
+            path={"admin/students"}
+          />
+        ))}
+      </div>
     </div>
   );
 }

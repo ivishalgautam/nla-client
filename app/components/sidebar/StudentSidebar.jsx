@@ -6,11 +6,10 @@ import { CgNotes, CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
-import { clearAllCookies } from "@/app/lib/cookies";
+import { clearAllCookies, getCookie } from "@/app/lib/cookies";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../../public/nla-logo.jpeg";
-import useSessionStorage from "@/app/hooks/useSessionStorage";
 
 const navList = [
   {
@@ -40,7 +39,7 @@ const StudentSidebar = () => {
   const router = useRouter();
 
   function IsDashboard() {
-    const p = useSessionStorage("package");
+    const p = getCookie("package");
     return p === "dashboard" ? true : false;
   }
 

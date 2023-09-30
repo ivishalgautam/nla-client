@@ -3,7 +3,7 @@ import React from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 
-export default function ResultCardMulti({ result }) {
+export default function ResultCardMulti({ result, path }) {
   console.log(result);
   return (
     <div className="bg-white shadow-md rounded-md p-4 max-w-[25rem] mx-auto">
@@ -41,16 +41,19 @@ export default function ResultCardMulti({ result }) {
         </div>
         <div className="rounded-md shadow-sm p-2 text-sm font-semibold bg-lime-500 flex items-center justify-start gap-1">
           <AiOutlineCheckCircle size={20} />
-          <span>Correct answer: {result?.student_points}</span>
+          <span>Correct : {result?.student_points}</span>
         </div>
         <div className="rounded-md shadow-sm p-2 text-sm font-semibold bg-red-500 flex items-center justify-start gap-1">
           <RxCross2 size={20} />
           <span>
-            Wrong answers: {result?.total_points - result?.student_points}
+            Wrong :{" "}
+            {result?.total_points -
+              result?.student_points -
+              (result?.total_questions - result?.student_attempted)}
           </span>
         </div>
         <Link
-          href={`/student/answer-sheet/${result?.student_id}/${result?.test_id}?t=${result?.created_at}`}
+          href={`/${path}/answer-sheet/${result?.student_id}/${result?.test_id}?t=${result?.created_at}`}
           className="bg-primary col-span-2 text-center py-2 rounded-md"
         >
           View answer sheet
