@@ -24,7 +24,10 @@ export default function ProfilePage() {
     (async function () {
       try {
         const resp = await publicRequest.get(
-          `/students/${getCookie("student_id")}`
+          `/students/${getCookie("student_id")}`,
+          {
+            headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+          }
         );
         setDetails(resp.data);
         console.log(resp.data);
@@ -41,6 +44,9 @@ export default function ProfilePage() {
         {
           newPassword: password.newPassword,
           oldPassword: password.oldPassword,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         }
       );
       if (resp.status === 200) {

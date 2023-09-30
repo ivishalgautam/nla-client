@@ -22,7 +22,9 @@ export default function AnalyticsPage() {
 
   async function getResults(studentId) {
     try {
-      const resp = await publicRequest.get(`/results/${studentId}`);
+      const resp = await publicRequest.get(`/results/${studentId}`, {
+        headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+      });
       console.log(resp.data);
       setPoints(resp.data.map((item) => item.student_points));
     } catch (error) {
@@ -33,7 +35,10 @@ export default function AnalyticsPage() {
   async function handleSearch() {
     try {
       const resp = await publicRequest.get(
-        `/results/${getCookie("student_id")}`
+        `/results/${getCookie("student_id")}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
       );
       const filtereData = resp.data
         .filter(

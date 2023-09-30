@@ -30,7 +30,9 @@ export default function AddTestPage() {
   useEffect(() => {
     (async function () {
       try {
-        const resp = await adminRequest.get("/grades");
+        const resp = await adminRequest.get("/grades", {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        });
         setGrades(resp.data);
       } catch (error) {
         console.log(error);
@@ -40,16 +42,22 @@ export default function AddTestPage() {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
-    const resp = await adminRequest.post("/tests", {
-      name: inputs.name,
-      grade: inputs.grade,
-      test_type: inputs.test_type,
-      subject: inputs.subject,
-      start_time: inputs.start_time,
-      end_time: inputs.end_time,
-      duration: inputs.duration,
-      instructions,
-    });
+    const resp = await adminRequest.post(
+      "/tests",
+      {
+        name: inputs.name,
+        grade: inputs.grade,
+        test_type: inputs.test_type,
+        subject: inputs.subject,
+        start_time: inputs.start_time,
+        end_time: inputs.end_time,
+        duration: inputs.duration,
+        instructions,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      }
+    );
 
     // console.log(resp.data);
     if (resp.status === 200) {

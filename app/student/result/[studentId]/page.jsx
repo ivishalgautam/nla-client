@@ -20,7 +20,9 @@ export default function ResultPage({ params: { studentId } }) {
   useEffect(() => {
     (async function () {
       try {
-        const resp = await publicRequest.get(`/results/${studentId}`);
+        const resp = await publicRequest.get(`/results/${studentId}`,{
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        });
         setResult(resp.data);
         console.log(resp.data);
       } catch (error) {

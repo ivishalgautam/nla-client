@@ -13,6 +13,9 @@ export default function EnterEmail() {
         "/students/send-reset-mail",
         {
           email: email,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         }
       );
 

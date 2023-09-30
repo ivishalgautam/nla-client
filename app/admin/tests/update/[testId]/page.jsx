@@ -31,7 +31,9 @@ export default function UpdateTestPage({ params: { testId } }) {
     getTestById(testId);
     (async function () {
       try {
-        const resp = await adminRequest.get("/grades");
+        const resp = await adminRequest.get("/grades", {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        });
         setGrades(resp.data);
       } catch (error) {
         console.log(error);
@@ -41,7 +43,9 @@ export default function UpdateTestPage({ params: { testId } }) {
 
   async function getTestById(id) {
     try {
-      const resp = await adminRequest.get(`/tests/${id}`);
+      const resp = await adminRequest.get(`/tests/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       setInstructions(resp.data.instructions);
       for (const [key, value] of Object.entries(resp.data)) {
         if (key in inputs) {
@@ -56,10 +60,16 @@ export default function UpdateTestPage({ params: { testId } }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
     const { instruction, ...data } = inputs;
-    const resp = await adminRequest.put(`/tests/${testId}`, {
-      ...data,
-      instructions: instructions,
-    });
+    const resp = await adminRequest.put(
+      `/tests/${testId}`,
+      {
+        ...data,
+        instructions: instructions,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      }
+    );
 
     if (resp.status === 200) {
       toast.success("Test updated");

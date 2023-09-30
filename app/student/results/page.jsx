@@ -19,7 +19,9 @@ export default function StudentResultPage() {
 
   async function getResults(id) {
     try {
-      const resp = await publicRequest.get(`/results/${id}`);
+      const resp = await publicRequest.get(`/results/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+      });
       setResults(resp.data);
       console.log(resp.data);
     } catch (error) {
@@ -29,7 +31,9 @@ export default function StudentResultPage() {
 
   async function handleFilter(id) {
     try {
-      const resp = await publicRequest.get(`/results/${id}`);
+      const resp = await publicRequest.get(`/results/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+      });
       const filteredData = resp.data
         .filter(
           (item) =>

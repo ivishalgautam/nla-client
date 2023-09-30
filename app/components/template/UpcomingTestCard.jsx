@@ -9,7 +9,10 @@ export default function UpcomingTestCard({ test }) {
   async function sendQuery(testId) {
     try {
       const resp = await publicRequest.post(
-        `/query/${getCookie("student_id")}/${testId}`
+        `/query/${getCookie("student_id")}/${testId}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
       );
       console.log(resp.data);
       toast.success(resp.data.message);

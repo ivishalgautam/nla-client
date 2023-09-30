@@ -12,7 +12,9 @@ export default function UpcomingTests() {
   async function getUpcomingTests(id) {
     try {
       setIsLoading(true);
-      const resp = await publicRequest.get(`/tests/upcoming/${id}`);
+      const resp = await publicRequest.get(`/tests/upcoming/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+      });
       setTests(resp.data);
       setIsLoading(false);
       console.log(resp.data);

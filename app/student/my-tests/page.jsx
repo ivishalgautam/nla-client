@@ -13,7 +13,10 @@ const Page = () => {
     // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
     try {
       const { data } = await publicRequest.get(
-        `/tests/${getCookie("student_id")}`
+        `/tests/${getCookie("student_id")}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
       );
       setTests(data);
       setIsLoading(false);

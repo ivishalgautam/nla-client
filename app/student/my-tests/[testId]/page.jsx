@@ -39,16 +39,22 @@ const Page = ({ params: { testId } }) => {
     }
 
     try {
-      const resp = await publicRequest.post(`/results`, {
-        student_id: getCookie("student_id"),
-        test_id: testId,
-        student_points: TP,
-        total_points: points.totalPoints,
-        student_attempted: attempted,
-        total_questions: questions.length,
-        grade: calculateGrade(TP, points.totalPoints, questions.length),
-        user_answers: Object.values(userAnswers),
-      });
+      const resp = await publicRequest.post(
+        `/results`,
+        {
+          student_id: getCookie("student_id"),
+          test_id: testId,
+          student_points: TP,
+          total_points: points.totalPoints,
+          student_attempted: attempted,
+          total_questions: questions.length,
+          grade: calculateGrade(TP, points.totalPoints, questions.length),
+          user_answers: Object.values(userAnswers),
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
+      );
       if (resp.status === 200) {
         router.replace(`/student/result/${getCookie("student_id")}`);
       }
@@ -61,9 +67,15 @@ const Page = ({ params: { testId } }) => {
     (async function () {
       setIsLoading(true);
       try {
-        const { data } = await publicRequest.get(`/questions/${testId}`, {
-          studentId: `${getCookie("student_id")}`,
-        });
+        const { data } = await publicRequest.get(
+          `/questions/${testId}`,
+          {
+            studentId: `${getCookie("student_id")}`,
+          },
+          {
+            headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+          }
+        );
         setQuestions(data);
         console.log(data);
         setAnswers(data.map((item) => item.answer));
@@ -86,7 +98,12 @@ const Page = ({ params: { testId } }) => {
     })();
 
     (async function () {
-      const { data } = await publicRequest.get(`/tests/instructions/${testId}`);
+      const { data } = await publicRequest.get(
+        `/tests/instructions/${testId}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
+      );
       const timeArr = data?.duration?.split(" ");
       if (timeArr && timeArr[1] === "minute") {
         setDuration(timeArr[0] * 60 * 1000);

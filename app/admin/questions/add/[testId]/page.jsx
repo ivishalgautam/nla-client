@@ -26,10 +26,16 @@ export default function Page({ params: { testId } }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      const resp = await adminRequest.post("/questions", {
-        data: questionStates,
-        testId,
-      });
+      const resp = await adminRequest.post(
+        "/questions",
+        {
+          data: questionStates,
+          testId,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        }
+      );
 
       if (resp.status === 200) {
         toast.success(resp.data.message);
@@ -58,7 +64,9 @@ export default function Page({ params: { testId } }) {
   useEffect(() => {
     (async function () {
       try {
-        const { data } = await publicRequest.get(`/questions/${testId}`);
+        const { data } = await publicRequest.get(`/questions/${testId}`, {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        });
         // console.log(data);
         if (data.length > 0) {
           setQuestionStates([]);

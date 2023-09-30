@@ -30,7 +30,9 @@ export default function Registration() {
   useEffect(() => {
     (async function () {
       try {
-        const resp = await publicRequest.get("/grades");
+        const resp = await publicRequest.get("/grades", {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        });
         setGrades(resp.data);
       } catch (error) {
         console.log(error);
@@ -43,9 +45,15 @@ export default function Registration() {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post("/leads", {
-        ...inputVals,
-      });
+      const resp = await publicRequest.post(
+        "/leads",
+        {
+          ...inputVals,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
+      );
       if (resp.status === 200) {
         toast.success(resp.data.message);
         // router.push("/registration/thank-you");
@@ -72,7 +80,10 @@ export default function Registration() {
   async function getFilteredTests(grade, subject) {
     try {
       const resp = await publicRequest.get(
-        `/tests/filter?grade=${grade}&subject=${subject}`
+        `/tests/filter?grade=${grade}&subject=${subject}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
       );
       setOlympiadTests(resp.data);
       console.log(resp.data);

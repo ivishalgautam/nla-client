@@ -33,9 +33,15 @@ export default function StudentUpdate({ params: { studentId } }) {
   async function handleUpdate(e) {
     e.preventDefault();
     try {
-      const resp = await adminRequest.put(`/students/${studentId}`, {
-        ...inputVals,
-      });
+      const resp = await adminRequest.put(
+        `/students/${studentId}`,
+        {
+          ...inputVals,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        }
+      );
       if (resp.status === 200) {
         toast.success("Student updated successfully.");
         router.push("/admin/students");
@@ -62,7 +68,9 @@ export default function StudentUpdate({ params: { studentId } }) {
     const confirmation = confirm("Please confirm to delete.");
 
     if (confirmation) {
-      const resp = await adminRequest.delete(`/students/${id}`);
+      const resp = await adminRequest.delete(`/students/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         router.push("/admin/students");
@@ -74,7 +82,10 @@ export default function StudentUpdate({ params: { studentId } }) {
     console.log("object");
     try {
       const resp = await publicRequest.get(
-        `/tests/filter?grade=${grade}&subject=${subject}`
+        `/tests/filter?grade=${grade}&subject=${subject}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
       );
       setOlympiadTests(resp.data);
       console.log(resp.data);
@@ -87,7 +98,9 @@ export default function StudentUpdate({ params: { studentId } }) {
     // get students
     (async function () {
       try {
-        const resp = await adminRequest.get(`/students/${studentId}`);
+        const resp = await adminRequest.get(`/students/${studentId}`, {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        });
         for (const [key, value] of Object.entries(resp.data)) {
           if (key in inputVals) {
             setInputVals((prev) => ({ ...prev, [key]: value }));
@@ -102,7 +115,9 @@ export default function StudentUpdate({ params: { studentId } }) {
     // get grades
     (async function () {
       try {
-        const resp = await adminRequest.get("/grades");
+        const resp = await adminRequest.get("/grades", {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        });
         setGrades(resp.data);
       } catch (error) {
         console.log(error);
@@ -112,7 +127,9 @@ export default function StudentUpdate({ params: { studentId } }) {
     // get olympiad test
     (async function () {
       try {
-        const resp = await adminRequest.get("/tests");
+        const resp = await adminRequest.get("/tests", {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        });
         setOlympiadTests(
           resp.data.filter((item) => item.test_type === "olympiad")
         );

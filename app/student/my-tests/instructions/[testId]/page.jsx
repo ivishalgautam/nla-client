@@ -8,7 +8,9 @@ export default function InstructionPage({ params: { testId } }) {
 
   useEffect(() => {
     (async function () {
-      const resp = await publicRequest(`/tests/instructions/${testId}`);
+      const resp = await publicRequest(`/tests/instructions/${testId}`, {
+        headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+      });
       setTest(resp.data);
       console.log(resp.data);
     })();

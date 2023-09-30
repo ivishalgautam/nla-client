@@ -13,7 +13,9 @@ export default function ResultTable() {
   async function getResults() {
     setIsLoading(true);
     try {
-      const resp = await adminRequest.get("/results");
+      const resp = await adminRequest.get("/results", {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       setResults(resp.data);
       setIsLoading(false);
     } catch (error) {

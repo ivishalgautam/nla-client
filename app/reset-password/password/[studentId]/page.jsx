@@ -13,6 +13,9 @@ export default function EnterEmail({ params: { studentId } }) {
         `/students/reset-password/${studentId}`,
         {
           password: password,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         }
       );
 

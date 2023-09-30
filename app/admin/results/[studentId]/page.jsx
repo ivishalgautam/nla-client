@@ -15,7 +15,9 @@ export default function StudentResultTable({ params: { studentId } }) {
 
   async function getResults(id) {
     try {
-      const resp = await adminRequest.get(`/results/${id}`);
+      const resp = await adminRequest.get(`/results/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       setResults(resp.data);
       console.log(resp.data);
     } catch (error) {
@@ -29,7 +31,9 @@ export default function StudentResultTable({ params: { studentId } }) {
 
   async function handleSearch(id) {
     try {
-      const resp = await adminRequest.get(`/results/${id}`);
+      const resp = await adminRequest.get(`/results/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       const filtereData = resp.data
         .filter(
           (item) =>

@@ -1,5 +1,5 @@
 "use client";
-import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
+import { adminRequest } from "@/app/lib/requestMethods";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -15,7 +15,9 @@ export default function Import() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("csvFile", selectedFile);
-      const resp = await adminRequest.post("/students/import", formData);
+      const resp = await adminRequest.post("/students/import", formData, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         console.log(resp.data);

@@ -14,7 +14,9 @@ export default function TestTable() {
   async function getTests() {
     setIsLoading(true);
     try {
-      const resp = await adminRequest.get("/tests");
+      const resp = await adminRequest.get("/tests", {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       setTests(resp.data);
       setIsLoading(false);
     } catch (error) {
@@ -30,7 +32,9 @@ export default function TestTable() {
     const confirmation = confirm("Please confirm to delete.");
 
     if (confirmation) {
-      const resp = await adminRequest.delete(`/tests/${id}`);
+      const resp = await adminRequest.delete(`/tests/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         setTests((prev) => prev.filter((item) => item.id !== id));
@@ -49,7 +53,13 @@ export default function TestTable() {
     );
 
     try {
-      const resp = await adminRequest.put(`/tests/${id}`, { ...data });
+      const resp = await adminRequest.put(
+        `/tests/${id}`,
+        { ...data },
+        {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        }
+      );
 
       // console.log(resp.data);
     } catch (error) {

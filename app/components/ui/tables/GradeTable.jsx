@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { adminRequest, publicRequest } from "@/app/lib/requestMethods";
+import { adminRequest } from "@/app/lib/requestMethods";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { getCookie } from "@/app/lib/cookies";
@@ -14,7 +14,9 @@ export default function LevelTable() {
   async function getGrades() {
     setIsLoading(true);
     try {
-      const resp = await adminRequest.get("/grades");
+      const resp = await adminRequest.get("/grades", {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       setGrades(resp.data);
       setIsLoading(false);
     } catch (error) {
@@ -30,7 +32,9 @@ export default function LevelTable() {
     const confirmation = confirm("Please confirm to delete.");
 
     if (confirmation) {
-      const resp = await adminRequest.delete(`/grades/${id}`);
+      const resp = await adminRequest.delete(`/grades/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         setGrades((prev) => prev.filter((item) => item.id !== id));

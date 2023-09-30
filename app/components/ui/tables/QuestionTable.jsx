@@ -12,7 +12,9 @@ export default function QuestionTable() {
 
   useEffect(() => {
     async function getStudents() {
-      const resp = await adminRequest.get("/questions");
+      const resp = await adminRequest.get("/questions", {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       console.log(resp.data);
       setStudents(resp.data);
     }
@@ -23,7 +25,9 @@ export default function QuestionTable() {
     const confirmation = confirm("Please confirm to delete.");
 
     if (confirmation) {
-      const resp = await adminRequest.delete(`/students/${id}`);
+      const resp = await adminRequest.delete(`/students/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         setStudents((prev) => prev.filter((item) => item.id !== id));

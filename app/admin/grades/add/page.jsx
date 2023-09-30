@@ -15,9 +15,15 @@ export default function AddGradePage() {
       return toast.error("Please enter grade!");
     }
     try {
-      const resp = await adminRequest.post("/grades", {
-        name: inputRef.current.value,
-      });
+      const resp = await adminRequest.post(
+        "/grades",
+        {
+          name: inputRef.current.value,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        }
+      );
       console.log(resp.data);
       if (resp.status === 200) {
         toast.success(resp.data.message);

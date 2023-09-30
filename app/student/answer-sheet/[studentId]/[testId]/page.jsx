@@ -14,7 +14,10 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
     setIsLoading(true);
     try {
       const resp = await publicRequest.get(
-        `/results/answerSheet/${studentId}/${testId}?t=${createdAt}`
+        `/results/answerSheet/${studentId}/${testId}?t=${createdAt}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+        }
       );
       setIsLoading(false);
       setQuestions(resp.data);

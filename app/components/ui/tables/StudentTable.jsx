@@ -17,7 +17,9 @@ export default function StudentTable() {
   async function getStudents() {
     setIsLoading(true);
     try {
-      const resp = await adminRequest.get("/students");
+      const resp = await adminRequest.get("/students", {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       setStudents(resp.data);
       // console.log(resp.data);
       setIsLoading(false);
@@ -34,7 +36,9 @@ export default function StudentTable() {
     const confirmation = confirm("Please confirm to delete.");
 
     if (confirmation) {
-      const resp = await adminRequest.delete(`/students/${id}`);
+      const resp = await adminRequest.delete(`/students/${id}`, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         setStudents((prev) => prev.filter((item) => item.id !== id));
@@ -44,7 +48,9 @@ export default function StudentTable() {
 
   async function generateCredentials(studentId) {
     try {
-      const resp = await adminRequest.post(`/credentials/${studentId}`, null);
+      const resp = await adminRequest.post(`/credentials/${studentId}`, null, {
+        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+      });
       if (resp.status === 200) {
         toast.success(resp.data.message);
         console.log(resp.data);
