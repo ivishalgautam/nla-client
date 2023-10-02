@@ -84,7 +84,7 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
                       Correct : {answer}
                     </p>
                     <p className="text-xs font-semibold text-start">
-                      Your answer :{" "}
+                      Student answer :{" "}
                       {questions?.studentAnswers[key] === null
                         ? "Not attempted"
                         : questions?.studentAnswers[key]}
