@@ -15,6 +15,7 @@ const poppins = Poppins({
 export default function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
+    console.log("render");
     if (!getCookie("admin_token")) {
       router.push("/auth/login/admin");
       alert("token not found");
