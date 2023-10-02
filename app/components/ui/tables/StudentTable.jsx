@@ -99,7 +99,7 @@ export default function StudentTable() {
         { ...data },
         {
           headers: {
-            Authorization: `Bearer ${getCookie("token")}`,
+            Authorization: `Bearer ${getCookie("admin_token")}`,
           },
         }
       );
