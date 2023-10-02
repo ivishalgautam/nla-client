@@ -65,7 +65,9 @@ export default function TestTable() {
         }
       );
 
-      // console.log(resp.data);
+      if (resp.status === 200) {
+        toast.success("Test published");
+      }
     } catch (error) {
       console.log(error);
       toast.error("Some error occurred while updating!");
