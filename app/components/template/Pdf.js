@@ -7,7 +7,8 @@ import {
   StyleSheet,
   View,
 } from "@react-pdf/renderer";
-import CertificateTemplate from "../../../public/certificate_template.png";
+import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpeg";
+import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpeg";
 
 const styles = StyleSheet.create({
   title: {
@@ -52,36 +53,76 @@ const Pdf = ({ result }) => {
             justifyContent: "center",
           }}
         >
-          <Image
-            style={{ width: "100%", height: "100%" }}
-            {...CertificateTemplate}
-          />
+          {result?.subject === "abacus" ? (
+            <Image
+              style={{ width: "100%", height: "100%" }}
+              {...AbacusCertificateTemplate}
+            />
+          ) : (
+            <Image
+              style={{ width: "100%", height: "100%" }}
+              {...VedicCertificateTemplate}
+            />
+          )}
+          {/* full name */}
           <Text
             style={{
               position: "absolute",
-              top: "43%",
-              left: "50%",
+              top: "33%",
+              left: "15%",
+              fontWeight: "600",
               textTransform: "capitalize",
               transform: "translateX(-50%)",
             }}
           >
             {result?.fullname}
           </Text>
+
+          {/* class */}
           <Text
             style={{
               position: "absolute",
-              top: "71%",
-              left: "49.2%",
+              top: "41%",
+              left: "15%",
+              fontWeight: "600",
+              textTransform: "capitalize",
+              transform: "translateX(-50%)",
             }}
           >
-            {result?.grade}
+            {`Class ${result?.class}`}
+          </Text>
+
+          {/* school name */}
+          <Text
+            style={{
+              position: "absolute",
+              top: "48%",
+              left: "25%",
+              fontWeight: "600",
+              textTransform: "capitalize",
+              transform: "translateX(-50%)",
+            }}
+          >
+            {result?.school_name}
+          </Text>
+
+          {/* date */}
+          <Text
+            style={{
+              position: "absolute",
+              top: "63.5%",
+              left: "21%",
+              fontWeight: "600",
+              textTransform: "capitalize",
+              transform: "translateX(-50%)",
+            }}
+          >
+            {new Date(result?.held_on).toDateString()}
           </Text>
         </View>
 
         {/* <Text style={styles.text}>{`Test name: ${result?.test_name}`}</Text>
-        <Text
-          style={styles.text}
-        >{`Total questions: ${result?.total_questions}`}</Text>
+        
         <Text
           style={styles.text}
         >{`You attempted: ${result?.student_attempted}`}</Text>

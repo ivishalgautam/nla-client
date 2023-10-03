@@ -3,14 +3,31 @@ import ResultCard from "@/app/components/template/ResultCard";
 import ResultCardMulti from "@/app/components/template/ResultCardMulti";
 import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { GrFormNext, GrFormNextLink, GrFormPrevious } from "react-icons/gr";
+import {
+  MdNavigateNext,
+  MdOutlineNavigateNext,
+  MdSkipNext,
+  MdSkipPrevious,
+} from "react-icons/md";
 
 export default function StudentResultPage() {
+  const [resultsPerPage, setResultsPerPage] = useState(5);
   const [results, setResults] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
   const [date, setDate] = useState({
     startDate: null,
     endDate: null,
   });
+
+  const params = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const startIndex = (parseInt(params.get("page")) - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
+  const resultsToDisplay = results.slice(startIndex, endIndex);
 
   useEffect(() => {
     getResults(getCookie("student_id"));
@@ -22,7 +39,9 @@ export default function StudentResultPage() {
         headers: { Authorization: `Bearer ${getCookie("student_token")}` },
       });
       setResults(resp.data);
-      console.log(resp.data);
+      const tp = Math.ceil(resp.data.length / resultsPerPage);
+      setTotalPages(tp);
+      console.log({ tp });
     } catch (error) {
       console.log(error);
     }
@@ -34,18 +53,10 @@ export default function StudentResultPage() {
         headers: { Authorization: `Bearer ${getCookie("student_token")}` },
       });
       const filteredData = resp.data
-        .filter(
-          (item) =>
-            new Date(item.created_at).toLocaleDateString() >=
-            new Date(date.startDate).toLocaleDateString()
-        )
-        .filter(
-          (item) =>
-            new Date(item.created_at).toLocaleDateString() <=
-            new Date(date.endDate).toLocaleDateString()
-        );
+        .filter((item) => new Date(item.created_at) >= new Date(date.startDate))
+        .filter((item) => new Date(item.created_at) <= new Date(date.endDate));
       setResults(filteredData);
-      console.log(filteredData);
+      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -89,9 +100,45 @@ export default function StudentResultPage() {
         </button>
       </div>
       <div className="rounded grid grid-cols-3 gap-y-8">
-        {results?.map((result) => (
+        {resultsToDisplay?.map((result) => (
           <ResultCardMulti key={result.id} result={result} path={"student"} />
         ))}
+      </div>
+      <div className="pagination flex items-center justify-center mt-10 text-white gap-3">
+        <button
+          onClick={() =>
+            router.push(`${pathname}?page=${parseInt(params.get("page")) - 1}`)
+          }
+          disabled={parseInt(params.get("page")) === 1}
+          className={`flex items-center justify-cente px-4 py-2 pr-5 rounded-md ${
+            parseInt(params.get("page")) === 1
+              ? "cursor-not-allowed bg-gray-400"
+              : "cursor-pointer bg-primary"
+          }`}
+        >
+          <MdSkipPrevious size={25} className="text-white" />
+          <span>Previous</span>
+        </button>
+        <div className="bg-white text-primary border border-primary px-4 py-2 rounded-md">
+          <span>Page {params.get("page")}</span>
+          {/* Display total pages if needed */}
+          <span> of {totalPages}</span>
+        </div>
+        <button
+          onClick={() =>
+            router.push(`${pathname}?page=${parseInt(params.get("page")) + 1}`)
+          }
+          disabled={endIndex >= results.length}
+          className={`flex items-center justify-center bg-primary px-4 py-2 pl-5 rounded-md ${
+            endIndex >= results.length
+              ? "cursor-not-allowed bg-gray-400"
+              : "cursor-pointer bg-primary"
+          }
+          `}
+        >
+          <span>Next</span>
+          <MdSkipNext size={25} fill="#fff" className="text-white" />
+        </button>
       </div>
     </section>
   );

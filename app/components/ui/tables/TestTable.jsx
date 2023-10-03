@@ -64,10 +64,6 @@ export default function TestTable() {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         }
       );
-
-      if (resp.status === 200) {
-        toast.success("Test published");
-      }
     } catch (error) {
       console.log(error);
       toast.error("Some error occurred while updating!");

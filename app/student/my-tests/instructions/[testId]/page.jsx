@@ -1,11 +1,16 @@
 "use client";
 import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function InstructionPage({ params: { testId } }) {
+  const router = useRouter();
   const [test, setTest] = useState({});
+
+  function handleNavigate(id) {
+    router.replace(`/student/my-tests/${test.id}`);
+  }
 
   useEffect(() => {
     (async function () {
@@ -26,12 +31,12 @@ export default function InstructionPage({ params: { testId } }) {
           })}
         </ul>
 
-        <Link
-          href={`/student/my-tests/${test.id}`}
+        <button
+          onClick={() => handleNavigate(test.id)}
           className="bg-primary px-3 py-2 rounded text-white font-semibold text-center"
         >
           Start test
-        </Link>
+        </button>
       </div>
     </section>
   );

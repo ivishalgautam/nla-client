@@ -2,6 +2,15 @@ import Link from "next/link";
 import React from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
+import Pdf from "./Pdf";
 
 export default function ResultCardMulti({ result, path }) {
   console.log(result);
@@ -58,6 +67,26 @@ export default function ResultCardMulti({ result, path }) {
         >
           View answer sheet
         </Link>
+
+        {result?.test_type !== "practice" && result?.grade !== "F" && (
+          <PDFDownloadLink
+            document={<Pdf result={result} />}
+            filename="FORM"
+            className="col-span-2"
+          >
+            {({ loading }) =>
+              loading ? (
+                <button className="w-full py-2 bg-primary rounded text-white">
+                  Loading Document...
+                </button>
+              ) : (
+                <button className="w-full py-2 bg-primary rounded text-white">
+                  Download Certificate
+                </button>
+              )
+            }
+          </PDFDownloadLink>
+        )}
       </div>
     </div>
   );

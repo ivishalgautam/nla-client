@@ -1,3 +1,12 @@
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
+import Pdf from "@/app/components/template/Pdf";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -5,6 +14,7 @@ import { RxCross2 } from "react-icons/rx";
 
 export default function ResultCard({ result }) {
   const grade = result[result?.length - 1]?.grade;
+
   return (
     <div className="bg-white shadow-md rounded-lg p-4 max-w-[25rem] mx-auto">
       <div className="grade">
@@ -65,6 +75,27 @@ export default function ResultCard({ result }) {
         >
           View answer sheet
         </Link>
+
+        {result[result?.length - 1]?.test_type !== "practice" &&
+          result[result?.length - 1]?.grade !== "F" && (
+            <PDFDownloadLink
+              document={<Pdf result={result[result?.length - 1]} />}
+              filename="FORM"
+              className="col-span-2"
+            >
+              {({ loading }) =>
+                loading ? (
+                  <button className="w-full py-2 bg-primary rounded text-white">
+                    Loading Document...
+                  </button>
+                ) : (
+                  <button className="w-full py-2 bg-primary rounded text-white">
+                    Download Certificate
+                  </button>
+                )
+              }
+            </PDFDownloadLink>
+          )}
       </div>
     </div>
   );

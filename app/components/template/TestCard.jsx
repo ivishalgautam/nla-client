@@ -10,7 +10,6 @@ export default function TestCard({ test }) {
   }
 
   const isTestStarted = new Date() > new Date(test?.start_time);
-  console.log(isTestStarted);
 
   return (
     <div className="bg-white p-6 max-w-[30rem] rounded-md gap-y-4">

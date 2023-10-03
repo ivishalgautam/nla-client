@@ -18,10 +18,8 @@ const Page = ({ params: { testId } }) => {
   const [userAnswers, setUserAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  console.log({ answers, userAnswers });
 
   async function handleSubmitTest() {
-    console.log(points.totalPoints);
     let TP = 0;
     let attempted = 0;
 
@@ -77,7 +75,6 @@ const Page = ({ params: { testId } }) => {
           }
         );
         setQuestions(data);
-        console.log(data);
         setAnswers(data.map((item) => item.answer));
         const userAnswersObj = {};
 
@@ -142,15 +139,6 @@ const Page = ({ params: { testId } }) => {
       handleSubmitTest();
     }
   }, [shouldSubmit]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const referrer = document.referrer;
-      if (referrer && referrer.length > 0) {
-        console.log(referrer);
-      }
-    }
-  }, []);
 
   return (
     <section>

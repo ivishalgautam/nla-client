@@ -17,6 +17,7 @@ export default function CreateStudentPage() {
     gender: "",
     dob: "",
     city: "",
+    school_name: "",
     pincode: "",
     subject: "",
     grade: "",
@@ -348,6 +349,23 @@ export default function CreateStudentPage() {
             />
             <label htmlFor="dob" className="my-label">
               Date Of Birth
+            </label>
+          </div>
+
+          {/* school name */}
+          <div className="relative flex flex-col justify-end">
+            <input
+              type="text"
+              id="school_name"
+              name="school_name"
+              className="my-input peer"
+              placeholder=""
+              onChange={handleOnChange}
+              autoComplete="off"
+              required
+            />
+            <label htmlFor="school_name" className="my-label">
+              School name
             </label>
           </div>
 

@@ -18,6 +18,7 @@ export default function StudentUpdate({ params: { studentId } }) {
     city: "",
     pincode: "",
     subject: "",
+    school_name: "",
     grade: "",
     package: "",
     test_assigned: [],
@@ -422,6 +423,24 @@ export default function StudentUpdate({ params: { studentId } }) {
             />
             <label htmlFor="dob" className="my-label">
               Date Of Birth
+            </label>
+          </div>
+
+          {/* school name */}
+          <div className="relative flex flex-col justify-end">
+            <input
+              type="text"
+              id="school_name"
+              name="school_name"
+              className="my-input peer"
+              placeholder=""
+              value={inputVals.school_name}
+              onChange={handleOnChange}
+              autoComplete="off"
+              required
+            />
+            <label htmlFor="school_name" className="my-label">
+              School name
             </label>
           </div>
 

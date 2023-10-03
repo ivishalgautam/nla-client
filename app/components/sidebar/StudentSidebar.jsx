@@ -24,7 +24,7 @@ const navList = [
   },
   {
     name: "Results",
-    path: "/student/results",
+    path: "/student/results?page=1",
     icon: <ImStatsDots size={20} />,
   },
   {
