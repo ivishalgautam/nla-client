@@ -5,23 +5,17 @@ import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { GrFormNext, GrFormNextLink, GrFormPrevious } from "react-icons/gr";
-import {
-  MdNavigateNext,
-  MdOutlineNavigateNext,
-  MdSkipNext,
-  MdSkipPrevious,
-} from "react-icons/md";
+import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 
 export default function StudentResultPage() {
-  const [resultsPerPage, setResultsPerPage] = useState(5);
   const [results, setResults] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
   const [date, setDate] = useState({
     startDate: null,
     endDate: null,
   });
 
+  const [totalPages, setTotalPages] = useState(0);
+  const [resultsPerPage, setResultsPerPage] = useState(5);
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -41,7 +35,6 @@ export default function StudentResultPage() {
       setResults(resp.data);
       const tp = Math.ceil(resp.data.length / resultsPerPage);
       setTotalPages(tp);
-      console.log({ tp });
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +49,6 @@ export default function StudentResultPage() {
         .filter((item) => new Date(item.created_at) >= new Date(date.startDate))
         .filter((item) => new Date(item.created_at) <= new Date(date.endDate));
       setResults(filteredData);
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }

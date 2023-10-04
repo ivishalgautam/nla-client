@@ -20,6 +20,7 @@ export default function ResultTable() {
       setResults(resp.data);
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
     }
   }
@@ -86,7 +87,7 @@ export default function ResultTable() {
     {
       name: "All Results",
       selector: (row) => (
-        <Link href={`/admin/results/${row.student_id}`}>
+        <Link href={`/admin/results/${row.student_id}?page=1`}>
           <FiExternalLink className="text-sky-500" size={20} />
         </Link>
       ),

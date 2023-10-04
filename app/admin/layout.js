@@ -32,7 +32,7 @@ export default function AdminLayout({ children }) {
           router.replace("/auth/login/admin");
         });
     }
-  }, [router]);
+  }, [getCookie("admin_token")]);
 
   const handleGoBack = () => {
     router.back();
