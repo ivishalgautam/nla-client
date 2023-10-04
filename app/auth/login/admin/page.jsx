@@ -44,7 +44,7 @@ export default function LoginPage() {
 
       console.log(data);
     } catch (error) {
-      toast.error(error.response.data.message);
+      // toast.error(error.response.data.message);
       console.log(error);
     }
   }
