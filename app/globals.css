@@ -136,6 +136,10 @@
     @apply text-3xl font-bold;
   }
 
+  .dashboard-add-card {
+    @apply bg-gray-500 hover:bg-gray-600 transition-colors flex items-center justify-between rounded p-4 cursor-pointer;
+  }
+
   .image-container {
     width: 100%;
   }

@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import { PiStudentFill } from "react-icons/pi";
 import Loading from "./loading";
 import Link from "next/link";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import LeadsTable from "@/app/components/ui/tables/LeadsTable";
 
 export default function Dashboard() {
   const [details, setDetails] = useState(null);
@@ -104,21 +106,44 @@ export default function Dashboard() {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-md shadow-md">
-            <div>
-              <Link href="/admin/students/add">Add students</Link>
+          <div className="bg-white rounded-md shadow-md grid grid-cols-2 text-white gap-4 p-4">
+            <div className="dashboard-add-card">
+              <Link
+                href="/admin/students/add"
+                className="text-xl font-semibold"
+              >
+                Add students
+              </Link>
+              <IoIosAddCircleOutline size={30} className="text-white" />
             </div>
-            <div>
-              <Link href="/admin/students/add/import">Import students</Link>
+            <div className="dashboard-add-card">
+              <Link
+                href="/admin/students/add/import"
+                className="text-xl font-semibold"
+              >
+                Import students
+              </Link>
+              <IoIosAddCircleOutline size={30} className="text-white" />
             </div>
-            <div>
-              <Link href="/admin/tests/add">Add tests</Link>
+            <div className="dashboard-add-card">
+              <Link href="/admin/tests/add" className="text-xl font-semibold">
+                Add tests
+              </Link>
+              <IoIosAddCircleOutline size={30} className="text-white" />
             </div>
-            <div>
-              <Link href="/admin/grades/add">Add grades</Link>
+            <div className="dashboard-add-card">
+              <Link href="/admin/grades/add" className="text-xl font-semibold">
+                Add grades
+              </Link>
+              <IoIosAddCircleOutline size={30} className="text-white" />
             </div>
           </div>
-          <div className="bg-white rounded-md shadow-md"></div>
+          <div className="bg-white rounded-md shadow-md p-4">
+            <h2 className="text-center text-2xl font-bold text-gray-700">
+              Recent leads
+            </h2>
+            <LeadsTable />
+          </div>
         </div>
       </div>
     </section>
