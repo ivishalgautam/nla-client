@@ -23,7 +23,7 @@ export default function EnterEmail({ params: { studentId } }) {
       if (status === 200) {
         toast.success(data.message);
       }
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);

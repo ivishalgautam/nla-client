@@ -14,7 +14,7 @@ export default function UpcomingTestCard({ test }) {
           headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         }
       );
-      console.log(resp.data);
+      // console.log(resp.data);
       toast.success(resp.data.message);
     } catch (error) {
       console.log(error);

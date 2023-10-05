@@ -22,7 +22,7 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
       );
       setIsLoading(false);
       setQuestions(resp.data);
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -31,7 +31,7 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
 
   useEffect(() => {
     getAnserSheet(studentId, testId, createdAt);
-    console.log(studentId, testId);
+    // console.log(studentId, testId);
   }, [studentId, testId]);
 
   return (

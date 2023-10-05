@@ -13,7 +13,6 @@ export default function TestTable() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function getTests() {
-    console.log("hello");
     setIsLoading(true);
     try {
       const resp = await adminRequest.get("/tests", {

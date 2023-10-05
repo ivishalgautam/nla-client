@@ -24,7 +24,7 @@ export default function StudentLayout({ children }) {
         .get("/validate", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((resp) => console.log({ data: resp.data }))
+        .then((resp) => resp.data)
         .catch((error) => {
           // console.log({ error });
           clearAllCookies();

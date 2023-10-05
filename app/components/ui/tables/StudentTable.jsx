@@ -52,7 +52,7 @@ export default function StudentTable() {
       });
       if (resp.status === 200) {
         toast.success(resp.data.message);
-        console.log(resp.data);
+        // console.log(resp.data);
         setStudents((prev) =>
           prev.map((item) => {
             if (item.id === studentId) {
@@ -72,7 +72,7 @@ export default function StudentTable() {
   }
 
   async function updateStudent({ id, data }) {
-    console.log(data);
+    // console.log(data);
     if ("is_disabled" in data) {
       setStudents((prev) =>
         prev.map((item) => {
@@ -103,7 +103,7 @@ export default function StudentTable() {
           },
         }
       );
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       console.log(error);
       toast.error("Some error occurred while updating!");

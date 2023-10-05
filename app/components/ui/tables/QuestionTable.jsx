@@ -15,7 +15,7 @@ export default function QuestionTable() {
       const resp = await adminRequest.get("/questions", {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
-      console.log(resp.data);
+      // console.log(resp.data);
       setStudents(resp.data);
     }
     getStudents();

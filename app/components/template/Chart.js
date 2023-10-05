@@ -11,7 +11,7 @@ import {
 } from "chart.js/auto";
 
 const Chart = ({ points, dates }) => {
-  console.log({ points, dates });
+  // console.log({ points, dates });
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [],

@@ -25,12 +25,12 @@ export default function AnalyticsPage() {
       const resp = await publicRequest.get(`/results/${studentId}`, {
         headers: { Authorization: `Bearer ${getCookie("student_token")}` },
       });
-      console.log(resp.data);
+      // console.log(resp.data);
       const filtered = resp.data.map((item) => ({
         point: item.student_points,
         date: new Date(item.created_at).toDateString(),
       }));
-      console.log(filtered);
+      // console.log(filtered);
       setData(filtered);
     } catch (error) {
       console.log(error);
@@ -57,7 +57,7 @@ export default function AnalyticsPage() {
             new Date(date.endDate).toLocaleDateString()
         );
       setPoints(filtereData.map((item) => item.student_points));
-      console.log(filtereData);
+      // console.log(filtereData);
     } catch (error) {
       console.log(error);
     }

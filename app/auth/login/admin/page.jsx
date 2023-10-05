@@ -42,7 +42,7 @@ export default function LoginPage() {
         router.push("/admin/dashboard");
       }
 
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       // toast.error(error.response.data.message);
       console.log(error);

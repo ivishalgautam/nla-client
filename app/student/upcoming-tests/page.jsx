@@ -17,7 +17,7 @@ export default function UpcomingTests() {
       });
       setTests(resp.data);
       setIsLoading(false);
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       console.log(error);
       setIsLoading(false);

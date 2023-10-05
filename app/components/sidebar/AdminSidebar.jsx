@@ -41,7 +41,7 @@ const navList = [
 const AdminSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   function handleLogout() {
     clearAllCookies();
     router.push("/auth/login/admin");

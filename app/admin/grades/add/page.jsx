@@ -24,13 +24,13 @@ export default function AddGradePage() {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         }
       );
-      console.log(resp.data);
+      // console.log(resp.data);
       if (resp.status === 200) {
         toast.success(resp.data.message);
         router.push("/admin/grades");
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Some error occured");
       console.log(error);
     }
   }

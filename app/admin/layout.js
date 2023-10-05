@@ -15,18 +15,22 @@ const poppins = Poppins({
 export default function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
-    console.log("render");
+    // console.log("render");
     if (!getCookie("admin_token")) {
       router.push("/auth/login/admin");
-      alert("token not found");
+      // alert("token not found");
     } else {
       authRequest
         .get("/validate", {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         })
-        .then((resp) => console.log({ data: resp.data }))
+        .then(
+          (resp) =>
+            // console.log({ data: resp.data })
+            resp
+        )
         .catch((error) => {
-          alert("invalid token");
+          // alert("invalid token");
           console.log(error);
           clearAllCookies();
           router.replace("/auth/login/admin");

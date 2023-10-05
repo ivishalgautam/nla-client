@@ -14,7 +14,7 @@ export default function ResultPage({ params: { studentId } }) {
           headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         });
         setResult(resp.data);
-        console.log(resp.data);
+        // console.log(resp.data);
       } catch (error) {
         console.log(error);
       }

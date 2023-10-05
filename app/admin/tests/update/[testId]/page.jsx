@@ -46,7 +46,7 @@ export default function UpdateTestPage({ params: { testId } }) {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
       setInstructions(resp.data.instructions);
-      console.log(resp.data);
+      // console.log(resp.data);
       for (const [key, value] of Object.entries(resp.data)) {
         if (key in inputs) {
           setInputs((prev) => ({ ...prev, [key]: value }));
@@ -78,7 +78,7 @@ export default function UpdateTestPage({ params: { testId } }) {
   }
 
   function handleDateChange(e, type) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const selectedDate = e.target.value;
 
     if (type === "start") {

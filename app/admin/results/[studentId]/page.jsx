@@ -54,7 +54,7 @@ export default function StudentResultTable({ params: { studentId } }) {
       setResults(filtereData);
       const tp = Math.ceil(resp.data.length / resultsPerPage);
       setTotalPages(tp);
-      console.log(filtereData);
+      // console.log(filtereData);
     } catch (error) {
       console.log(error);
     }

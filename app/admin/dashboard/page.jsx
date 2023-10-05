@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import { PiStudentFill } from "react-icons/pi";
 import Loading from "./loading";
+import Link from "next/link";
 
 export default function Dashboard() {
   const [details, setDetails] = useState(null);
@@ -17,11 +18,11 @@ export default function Dashboard() {
         const resp = await adminRequest.get("/dashboard/details", {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         });
-        console.log(resp.data);
+        // console.log(resp.data);
         setDetails(resp.data);
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         setIsLoading(false);
       }
     })();
@@ -33,8 +34,8 @@ export default function Dashboard() {
 
   return (
     <section className="h-full">
-      <div className="rounded-md bg-white shadow">
-        <div className="grid grid-cols-3 gap-4 p-4 text-white">
+      <div className="space-y-8">
+        <div className="grid grid-cols-3 gap-4 p-4 bg-white text-white rounded-md shadow-md">
           {/* total */}
           <div className="dashboard-mini-card bg-blue-400">
             <div>
@@ -102,10 +103,23 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* <div className="grid grid-cols-2 gap-4 p-4 text-white">
-          <div className="bg-primary rounded-md">x</div>
-          <div className="bg-primary rounded-md">x</div>
-        </div> */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-md shadow-md">
+            <div>
+              <Link href="/admin/students/add">Add students</Link>
+            </div>
+            <div>
+              <Link href="/admin/students/add/import">Import students</Link>
+            </div>
+            <div>
+              <Link href="/admin/tests/add">Add tests</Link>
+            </div>
+            <div>
+              <Link href="/admin/grades/add">Add grades</Link>
+            </div>
+          </div>
+          <div className="bg-white rounded-md shadow-md"></div>
+        </div>
       </div>
     </section>
   );

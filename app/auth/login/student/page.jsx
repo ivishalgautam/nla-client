@@ -25,7 +25,7 @@ export default function LoginPage() {
         ...credentials,
       });
 
-      console.log(data);
+      // console.log(data);
 
       if (status === 200) {
         toast.success("Logged in successfully");
@@ -40,7 +40,7 @@ export default function LoginPage() {
         router.push("/student/profile");
       }
 
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);

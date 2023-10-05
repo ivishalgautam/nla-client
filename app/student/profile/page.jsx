@@ -30,7 +30,7 @@ export default function ProfilePage() {
           }
         );
         setDetails(resp.data);
-        console.log(resp.data);
+        // console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -53,7 +53,7 @@ export default function ProfilePage() {
         toast.success(resp.data.message);
         closeModal();
       }
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);

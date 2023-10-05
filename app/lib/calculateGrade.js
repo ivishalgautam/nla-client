@@ -4,7 +4,7 @@ export function calculateGrade(studentPoints, totalPoints, totalQuestions) {
   }
 
   const percentage = (studentPoints * 100) / totalQuestions;
-  console.log(percentage);
+  // console.log(percentage);
 
   if (percentage >= 90) {
     return "A";

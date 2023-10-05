@@ -23,7 +23,7 @@ export default function EnterEmail() {
       if (status === 200) {
         toast.success("We have sent a reset password link to your email");
       }
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);

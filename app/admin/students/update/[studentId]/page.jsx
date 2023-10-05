@@ -54,7 +54,7 @@ export default function StudentUpdate({ params: { studentId } }) {
 
   function handleOnChange(e) {
     const { name, value } = e.target;
-    console.log(value);
+    // console.log(value);
     if (name === "test_assigned") {
       setInputVals((prev) => ({
         ...prev,
@@ -80,7 +80,6 @@ export default function StudentUpdate({ params: { studentId } }) {
   };
 
   async function getFilteredTests(grade, subject) {
-    console.log("object");
     try {
       const resp = await publicRequest.get(
         `/tests/filter?grade=${grade}&subject=${subject}`,
@@ -107,7 +106,7 @@ export default function StudentUpdate({ params: { studentId } }) {
             setInputVals((prev) => ({ ...prev, [key]: value }));
           }
         }
-        console.log(resp.data);
+        // console.log(resp.data);
       } catch (error) {
         console.log(error);
       }

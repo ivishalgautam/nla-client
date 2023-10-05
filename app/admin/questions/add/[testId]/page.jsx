@@ -21,7 +21,7 @@ export default function Page({ params: { testId } }) {
       answer: "",
     },
   ]);
-  console.log(questionStates);
+  // console.log(questionStates);
 
   async function handleFormSubmit(e) {
     e.preventDefault();

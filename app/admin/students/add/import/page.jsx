@@ -21,7 +21,7 @@ export default function Import() {
       });
       if (resp.status === 200) {
         toast.success(resp.data.message);
-        console.log(resp.data);
+        // console.log(resp.data);
       }
     } else {
       console.error("No file selected.");

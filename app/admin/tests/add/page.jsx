@@ -70,7 +70,7 @@ export default function AddTestPage() {
   }
 
   function handleDateChange(e, type) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const selectedDate = e.target.value;
 
     if (type === "start") {
@@ -112,7 +112,7 @@ export default function AddTestPage() {
     }));
   }, [inputs.end_time]);
 
-  console.log(inputs);
+  // console.log(inputs);
 
   return (
     <section>

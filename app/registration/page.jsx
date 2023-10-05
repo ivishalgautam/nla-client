@@ -59,10 +59,10 @@ export default function Registration() {
         toast.success(resp.data.message);
         // router.push("/registration/thank-you");
       }
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error("Some error occured");
     }
   }
 
@@ -87,7 +87,7 @@ export default function Registration() {
         }
       );
       setOlympiadTests(resp.data);
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
