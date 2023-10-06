@@ -25,8 +25,6 @@ export default function LoginPage() {
         ...credentials,
       });
 
-      // console.log(data);
-
       if (status === 200) {
         toast.success("Logged in successfully");
 

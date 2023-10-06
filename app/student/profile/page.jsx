@@ -193,7 +193,7 @@ export default function ProfilePage() {
               </div>
               <div>
                 <h4 className="font-bold text-primary">Grade</h4>
-                <p className="text-sm capitalize">{details?.grade}</p>
+                <p className="text-sm capitalize">{details?.grade_name}</p>
               </div>
               <div>
                 <h4 className="font-bold text-primary">Reg. date</h4>
