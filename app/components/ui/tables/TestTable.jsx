@@ -95,8 +95,8 @@ export default function TestTable() {
     },
     {
       name: "Grade",
-      selector: (row) => row.grade,
-      // width: "8%",
+      selector: (row) => row.grade_name,
+      width: "8%",
     },
     {
       name: "Test type",
