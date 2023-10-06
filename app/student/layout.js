@@ -15,14 +15,13 @@ const poppins = Poppins({
 export default function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
-    const token = getCookie("student_token");
-    if (!token) {
+    if (!getCookie("student_token")) {
       clearAllCookies();
       return router.push("/auth/login/student");
     } else {
       authRequest
         .get("/validate", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         })
         .then((resp) => resp.data)
         .catch((error) => {
