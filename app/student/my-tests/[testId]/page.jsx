@@ -19,6 +19,8 @@ const Page = ({ params: { testId } }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  // console.log({ answers, userAnswers });
+
   async function handleSubmitTest() {
     let TP = 0;
     let attempted = 0;
@@ -75,6 +77,7 @@ const Page = ({ params: { testId } }) => {
           }
         );
         setQuestions(data);
+        console.log(data);
         setAnswers(data.map((item) => item.answer));
         const userAnswersObj = {};
 
