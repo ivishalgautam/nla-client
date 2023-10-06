@@ -80,7 +80,7 @@ export default function TestTable() {
   const columns = [
     {
       name: "Id",
-      selector: (row) => row.id,
+      selector: (row, key) => key + 1,
       width: "5%",
     },
     {

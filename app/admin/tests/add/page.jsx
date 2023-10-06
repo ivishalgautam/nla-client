@@ -225,8 +225,8 @@ export default function AddTestPage() {
           {/* start time */}
           <div className="relative flex flex-col justify-end">
             <input
+              type="datetime-local"
               value={inputs.start_time}
-              type="date"
               onChange={(e) => handleDateChange(e, "start")}
               className="bg-white my-input mt-2"
               min={new Date().toISOString().split("T")[0]}
@@ -240,10 +240,10 @@ export default function AddTestPage() {
           {/* end time */}
           <div className="relative flex flex-col justify-end">
             <input
+              type="datetime-local"
               value={inputs.end_time}
               onChange={(e) => handleDateChange(e, "end")}
               className="bg-white my-input mt-2"
-              type="date"
               min={new Date().toISOString().split("T")[0]}
               required
             />

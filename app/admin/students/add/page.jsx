@@ -75,6 +75,7 @@ export default function CreateStudentPage() {
         router.push("/admin/students");
       }
     } catch (error) {
+      toast.error(error.response.data.message);
       console.log(error);
     }
   }

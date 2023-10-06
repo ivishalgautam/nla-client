@@ -30,7 +30,7 @@ export default function AddGradePage() {
         router.push("/admin/grades");
       }
     } catch (error) {
-      toast.error("Some error occured");
+      toast.error(error?.response?.data?.message);
       console.log(error);
     }
   }
