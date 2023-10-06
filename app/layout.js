@@ -11,6 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <title>NLA ACADEMY</title>
       <body className={`h-screen min-h-screen`}>
         <Theme className="h-full">{children}</Theme>
         <Toaster />
