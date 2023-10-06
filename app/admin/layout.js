@@ -27,7 +27,7 @@ export default function AdminLayout({ children }) {
         .then(
           (resp) =>
             // console.log({ data: resp.data })
-            resp
+            resp.data
         )
         .catch((error) => {
           // alert("invalid token");
@@ -36,7 +36,7 @@ export default function AdminLayout({ children }) {
           router.replace("/auth/login/admin");
         });
     }
-  }, [getCookie("admin_token")]);
+  }, []);
 
   const handleGoBack = () => {
     router.back();

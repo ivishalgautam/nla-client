@@ -31,7 +31,7 @@ export default function StudentLayout({ children }) {
           return router.replace("/auth/login/student");
         });
     }
-  }, [getCookie("student_token")]);
+  }, []);
 
   const handleGoBack = () => {
     router.back();
