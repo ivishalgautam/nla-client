@@ -77,7 +77,7 @@ const Page = ({ params: { testId } }) => {
           }
         );
         setQuestions(data);
-        console.log(data);
+        // console.log(data);
         setAnswers(data.map((item) => item.answer));
         const userAnswersObj = {};
 
