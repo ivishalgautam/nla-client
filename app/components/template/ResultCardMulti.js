@@ -21,19 +21,21 @@ export default function ResultCardMulti({ result, path }) {
       <div className="grade">
         <div
           className={`${
-            result?.grade === "A"
+            result?.grade === "championship"
               ? "bg-primary"
-              : result?.grade === "B"
+              : result?.grade === "winner"
               ? "bg-[#99c144d9]"
-              : result?.grade === "C"
+              : result?.grade === "runner up"
               ? "bg-[#f6ab34d9]"
-              : result?.grade === "D"
+              : result?.grade === "participation"
               ? "bg-orange-400"
-              : "bg-rose-500"
-          } text-white mx-auto w-20 h-20 rounded-full flex items-center justify-center flex-col`}
+              : null
+          } text-white mx-auto w-32 h-32 rounded-full flex items-center justify-center`}
         >
-          <span className="text-4xl font-bold">{result?.grade}</span>
-          <p className="text-sm font-bold -mt-2">Grade</p>
+          <span className="text-md font-bold capitalize tracking-wider">
+            {result?.grade}
+          </span>
+          {/* <p className="text-sm font-bold -mt-2">Grade</p> */}
         </div>
       </div>
 
@@ -70,7 +72,7 @@ export default function ResultCardMulti({ result, path }) {
           View answer sheet
         </Link>
 
-        {result?.test_type !== "practice" && result?.grade !== "F" && (
+        {result?.test_type !== "practice" && (
           <PDFDownloadLink
             document={<Pdf result={result} />}
             filename="FORM"

@@ -23,19 +23,21 @@ export default function ResultCard({ result }) {
       <div className="grade">
         <div
           className={`${
-            grade === "A"
+            grade === "championship"
               ? "bg-primary"
-              : grade === "B"
+              : grade === "winner"
               ? "bg-[#99c144d9]"
-              : grade === "C"
+              : grade === "runner up"
               ? "bg-[#f6ab34d9]"
-              : grade === "D"
+              : grade === "participation"
               ? "bg-orange-400"
-              : "bg-rose-500"
-          } text-white mx-auto w-20 h-20 rounded-full flex items-center justify-center flex-col`}
+              : null
+          } text-white mx-auto w-32 h-32 rounded-full flex items-center justify-center flex-col relative`}
         >
-          <span className="text-4xl font-bold">{result[0]?.grade}</span>
-          <p className="text-sm font-bold -mt-2">Grade</p>
+          <span className="text-md font-bold capitalize tracking-wider">
+            {result[0]?.grade}
+          </span>
+          {/* <p className="text-sm font-bold absolute bottom-4">Grade</p> */}
         </div>
       </div>
 
@@ -72,7 +74,7 @@ export default function ResultCard({ result }) {
           View answer sheet
         </Link>
 
-        {result[0]?.test_type !== "practice" && result[0]?.grade !== "F" && (
+        {result[0]?.test_type !== "practice" && (
           <PDFDownloadLink
             document={<Pdf result={result[0]} />}
             filename="FORM"

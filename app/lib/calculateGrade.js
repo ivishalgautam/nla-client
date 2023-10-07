@@ -7,14 +7,16 @@ export function calculateGrade(studentPoints, totalPoints, totalQuestions) {
   // console.log(percentage);
 
   if (percentage >= 90) {
-    return "A";
+    // return "A";
+    return "championship";
   } else if (percentage >= 80) {
-    return "B";
+    // return "B";
+    return "winner";
   } else if (percentage >= 70) {
-    return "C";
-  } else if (percentage >= 60) {
-    return "D";
+    // return "C";
+    return "runner up";
   } else {
-    return "F";
+    // return "D";
+    return "participation";
   }
 }
