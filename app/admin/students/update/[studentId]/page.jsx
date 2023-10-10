@@ -20,14 +20,16 @@ export default function StudentUpdate({ params: { studentId } }) {
     subject: "",
     school_name: "",
     grade: "",
+    classs: "",
     package: "",
+    expiration_date: "",
     test_assigned: [],
   });
   const [grades, setGrades] = useState([]);
   const [olympiadTests, setOlympiadTests] = useState([]);
   const [olympiadTestsOptions, setOlympiadTestsOptions] = useState([]);
   const [selectedTests, setSelectedTests] = useState([]);
-  // console.log({ selectedTests, olympiadTests, olympiadTestsOptions });
+  console.log(inputVals);
 
   const router = useRouter();
 
@@ -54,7 +56,7 @@ export default function StudentUpdate({ params: { studentId } }) {
 
   function handleOnChange(e) {
     const { name, value } = e.target;
-    // console.log(value);
+    console.log(name);
     if (name === "test_assigned") {
       setInputVals((prev) => ({
         ...prev,
@@ -62,6 +64,7 @@ export default function StudentUpdate({ params: { studentId } }) {
       }));
       return;
     }
+
     setInputVals((prev) => ({ ...prev, [name]: value }));
   }
 
@@ -101,11 +104,16 @@ export default function StudentUpdate({ params: { studentId } }) {
         const resp = await adminRequest.get(`/students/${studentId}`, {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         });
+
         for (const [key, value] of Object.entries(resp.data)) {
           if (key in inputVals) {
             setInputVals((prev) => ({ ...prev, [key]: value }));
           }
+          if (key === "class") {
+            setInputVals((prev) => ({ ...prev, classs: value }));
+          }
         }
+
         // console.log(resp.data);
       } catch (error) {
         console.log(error);
@@ -221,7 +229,7 @@ export default function StudentUpdate({ params: { studentId } }) {
             </label>
           </div>
 
-          {/* grade */}
+          {/* level */}
           <div className="relative flex flex-col justify-end">
             <select
               name="grade"
@@ -232,7 +240,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               required
             >
               <option hidden disabled value="" selected>
-                Select grade
+                Select level
               </option>
               {grades.length <= 0 ? (
                 <option disabled>Loading...</option>
@@ -247,7 +255,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               )}
             </select>
             <label htmlFor="grade" className="my-label">
-              Grade
+              Level
             </label>
           </div>
 
@@ -327,8 +335,26 @@ export default function StudentUpdate({ params: { studentId } }) {
               onChange={handleOnChange}
               required
             />
-            <label htmlFor="fullaname" className="my-label">
+            <label htmlFor="fullname" className="my-label">
               Fullname
+            </label>
+          </div>
+
+          {/* class */}
+          <div className="relative flex flex-col justify-end">
+            <input
+              type="text"
+              id="classs"
+              name="classs"
+              className="my-input peer"
+              placeholder=""
+              autoComplete="off"
+              value={inputVals.classs}
+              onChange={handleOnChange}
+              required
+            />
+            <label htmlFor="classs" className="my-label">
+              Grade
             </label>
           </div>
 
@@ -476,6 +502,24 @@ export default function StudentUpdate({ params: { studentId } }) {
             />
             <label htmlFor="pincode" className="my-label">
               Pincode
+            </label>
+          </div>
+
+          {/* expiration date */}
+          <div className="relative flex flex-col justify-end">
+            <input
+              type="date"
+              id="expiration_date"
+              name="expiration_date"
+              className="my-input peer"
+              placeholder=""
+              value={inputVals.expiration_date.split("T")[0]}
+              onChange={handleOnChange}
+              autoComplete="off"
+              required
+            />
+            <label htmlFor="expiration_date" className="my-label">
+              Expiration Date
             </label>
           </div>
         </div>

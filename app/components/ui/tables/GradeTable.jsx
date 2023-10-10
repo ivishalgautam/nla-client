@@ -58,10 +58,10 @@ export default function LevelTable() {
   const columns = [
     {
       name: "Id",
-      selector: (row) => row.id,
+      selector: (row, key) => key + 1,
     },
     {
-      name: "Grade",
+      name: "Level",
       selector: (row) => row.name,
     },
     {

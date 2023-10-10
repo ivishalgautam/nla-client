@@ -21,6 +21,7 @@ export default function CreateStudentPage() {
     pincode: "",
     subject: "",
     grade: "",
+    classs: "",
     package: "",
     test_assigned: [],
   });
@@ -167,7 +168,7 @@ export default function CreateStudentPage() {
               required
             >
               <option hidden disabled value="" selected>
-                Select grade
+                Select level
               </option>
               {grades.length <= 0 ? (
                 <option disabled>No grade found</option>
@@ -182,7 +183,7 @@ export default function CreateStudentPage() {
               )}
             </select>
             <label htmlFor="grade" className="my-label">
-              Grade
+              Level
             </label>
           </div>
 
@@ -262,6 +263,24 @@ export default function CreateStudentPage() {
             />
             <label htmlFor="fullname" className="my-label">
               Fullname
+            </label>
+          </div>
+
+          {/* class */}
+          <div className="relative flex flex-col justify-end">
+            <input
+              type="text"
+              id="classs"
+              name="classs"
+              className="my-input peer"
+              placeholder=""
+              autoComplete="off"
+              value={inputVals.classs}
+              onChange={handleOnChange}
+              required
+            />
+            <label htmlFor="classs" className="my-label">
+              Grade
             </label>
           </div>
 

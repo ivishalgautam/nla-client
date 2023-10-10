@@ -22,7 +22,7 @@ const navList = [
     icon: <HiOutlinePencilAlt size={20} />,
   },
   {
-    name: "Grades",
+    name: "Levels",
     path: "/admin/grades",
     icon: <CgNotes size={20} />,
   },

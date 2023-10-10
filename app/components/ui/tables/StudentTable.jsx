@@ -163,6 +163,14 @@ export default function StudentTable() {
       width: "15%",
     },
     {
+      name: "Expire",
+      selector: (row) =>
+        row.expiration_date === null
+          ? "Not defined!"
+          : new Date(row.expiration_date).toLocaleDateString(),
+      width: "15%",
+    },
+    {
       name: "Disabled",
       selector: (row) => (
         <label className="switch">

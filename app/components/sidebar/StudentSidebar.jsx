@@ -48,6 +48,10 @@ const StudentSidebar = () => {
     router.push("/auth/login/student");
   }
 
+  function handleShop() {
+    router.replace("https://nlaacademy.in");
+  }
+
   return (
     <aside className="w-full h-full bg-white shadow text-gray-900 space-y-4 p-4">
       <div>
@@ -96,6 +100,13 @@ const StudentSidebar = () => {
             </li>
           )}
         </ul>
+        <button
+          className="w-full bg-primary align-middle rounded py-2 text-white mt-6"
+          onClick={handleShop}
+        >
+          Shop
+          <FiLogOut className="inline ml-2" size={20} />
+        </button>
         <button
           className="w-full bg-primary align-middle rounded py-2 text-white mt-6"
           onClick={handleLogout}
