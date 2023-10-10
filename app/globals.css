@@ -140,6 +140,14 @@
     @apply bg-gray-500 hover:bg-gray-600 transition-colors flex items-center justify-between rounded p-4 cursor-pointer;
   }
 
+  /* aside {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  } */
+
   .image-container {
     width: 100%;
   }

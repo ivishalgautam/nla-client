@@ -105,8 +105,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-md shadow-md grid grid-cols-2 text-white gap-4 p-4">
+        <div className="grid grid-cols-1 gap-8">
+          <div className="bg-white rounded-lg shadow-md grid grid-cols-4 text-white gap-4 p-4">
             <div className="dashboard-add-card">
               <Link
                 href="/admin/students/add"

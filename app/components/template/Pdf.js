@@ -7,8 +7,8 @@ import {
   StyleSheet,
   View,
 } from "@react-pdf/renderer";
-import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpeg";
-import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpeg";
+import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpg";
+import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpg";
 
 const styles = StyleSheet.create({
   title: {
@@ -82,21 +82,21 @@ const Pdf = ({ result }) => {
           <Text
             style={{
               position: "absolute",
-              top: "41%",
+              top: "39%",
               left: "15%",
               fontWeight: "600",
               textTransform: "capitalize",
               transform: "translateX(-50%)",
             }}
           >
-            {`Class ${result?.class}`}
+            {result?.class}
           </Text>
 
           {/* school name */}
           <Text
             style={{
               position: "absolute",
-              top: "48%",
+              top: "45%",
               left: "25%",
               fontWeight: "600",
               textTransform: "capitalize",
@@ -104,6 +104,20 @@ const Pdf = ({ result }) => {
             }}
           >
             {result?.school_name}
+          </Text>
+
+          {/* grade */}
+          <Text
+            style={{
+              position: "absolute",
+              top: "51%",
+              left: "25%",
+              fontWeight: "600",
+              textTransform: "capitalize",
+              transform: "translateX(-50%)",
+            }}
+          >
+            {result?.grade}
           </Text>
 
           {/* date */}
