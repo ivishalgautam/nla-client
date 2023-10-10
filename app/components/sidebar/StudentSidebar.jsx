@@ -108,13 +108,6 @@ const StudentSidebar = () => {
         </ul>
         <button
           className="w-full bg-primary align-middle rounded py-2 text-white mt-6"
-          onClick={handleShop}
-        >
-          Shop
-          <FiLogOut className="inline ml-2" size={20} />
-        </button>
-        <button
-          className="w-full bg-primary align-middle rounded py-2 text-white mt-6"
           onClick={handleLogout}
         >
           Logout
