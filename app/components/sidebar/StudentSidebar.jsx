@@ -10,6 +10,7 @@ import { clearAllCookies, getCookie } from "@/app/lib/cookies";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Logo from "../../../public/nla-logo.jpeg";
+import { AiOutlineShopping } from "react-icons/ai";
 
 const navList = [
   {
@@ -31,6 +32,11 @@ const navList = [
     name: "Upcoming tests",
     path: "/student/upcoming-tests",
     icon: <SlCalender size={20} />,
+  },
+  {
+    name: "Shop",
+    path: "https://nlaacademy.in",
+    icon: <AiOutlineShopping size={20} />,
   },
 ];
 
