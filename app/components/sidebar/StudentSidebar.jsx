@@ -96,7 +96,7 @@ const StudentSidebar = () => {
               </Link>
             </li>
           )}
-          <li key={key}>
+          <li>
             <Link
               className={`text-[1.2rem] text-gray-500 hover:text-blue-950 transition-colors flex gap-2 items-center`}
               href="https://nlaacademy.in/shop.php"
