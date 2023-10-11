@@ -33,11 +33,6 @@ const navList = [
     path: "/student/upcoming-tests",
     icon: <SlCalender size={20} />,
   },
-  {
-    name: "Shop",
-    path: "https://nlaacademy.in",
-    icon: <AiOutlineShopping size={20} />,
-  },
 ];
 
 const StudentSidebar = () => {
@@ -52,10 +47,6 @@ const StudentSidebar = () => {
   function handleLogout() {
     clearAllCookies();
     router.push("/auth/login/student");
-  }
-
-  function handleShop() {
-    router.replace("https://nlaacademy.in");
   }
 
   return (
@@ -105,6 +96,15 @@ const StudentSidebar = () => {
               </Link>
             </li>
           )}
+          <li key={key}>
+            <Link
+              className={`text-[1.2rem] text-gray-500 hover:text-blue-950 transition-colors flex gap-2 items-center`}
+              href="https://nlaacademy.in/shop.php"
+            >
+              <AiOutlineShopping size={20} />
+              Shop
+            </Link>
+          </li>
         </ul>
         <button
           className="w-full bg-primary align-middle rounded py-2 text-white mt-6"
