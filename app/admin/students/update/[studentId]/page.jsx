@@ -513,7 +513,11 @@ export default function StudentUpdate({ params: { studentId } }) {
               name="expiration_date"
               className="my-input peer"
               placeholder=""
-              value={inputVals.expiration_date.split("T")[0]}
+              value={
+                inputVals.expiration_date === null
+                  ? new Date().toLocaleDateString().split("T")[0]
+                  : inputVals.expiration_date.split("T")[0]
+              }
               onChange={handleOnChange}
               autoComplete="off"
               required
