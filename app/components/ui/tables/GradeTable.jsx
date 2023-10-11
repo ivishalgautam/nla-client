@@ -100,7 +100,7 @@ export default function LevelTable() {
             href={`/admin/grades/add`}
             className="bg-emerald-500 rounded-md py-1 px-3 text-white"
           >
-            Add Grade
+            Add level
           </Link>
         </div>
       </div>

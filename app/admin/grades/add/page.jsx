@@ -12,7 +12,7 @@ export default function AddGradePage() {
   async function handleFormSubmit(e) {
     e.preventDefault();
     if (inputRef.current.value === "") {
-      return toast.error("Please enter grade!");
+      return toast.error("Please enter level!");
     }
     try {
       const resp = await adminRequest.post(
@@ -26,7 +26,7 @@ export default function AddGradePage() {
       );
       // console.log(resp.data);
       if (resp.status === 200) {
-        toast.success(resp.data.message);
+        toast.success("New level added");
         router.push("/admin/grades");
       }
     } catch (error) {
@@ -37,7 +37,7 @@ export default function AddGradePage() {
 
   return (
     <section>
-      <h2 className="section-heading">Add Grade</h2>
+      <h2 className="section-heading">Add Level</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="relative flex flex-col justify-end">
           <input
@@ -50,7 +50,7 @@ export default function AddGradePage() {
             required
           />
           <label htmlFor="name" className="my-label">
-            Grade
+            Level
           </label>
         </div>
         <div className="mb-4 flex justify-end">
