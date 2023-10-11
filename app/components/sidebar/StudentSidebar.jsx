@@ -46,7 +46,7 @@ const StudentSidebar = () => {
 
   function handleLogout() {
     clearAllCookies();
-    router.push("/auth/login/student");
+    router.replace("https://nlaacademy.in/logout.php?source=Portal");
   }
 
   return (
