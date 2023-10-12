@@ -40,11 +40,11 @@ export default function Page({ params: { testId } }) {
       if (resp.status === 200) {
         toast.success(resp.data.message);
 
-        setOptions((prev) => resetValues(prev));
-        setInputs({
-          answer: null,
-        });
-        router.push("/admin/tests");
+        // setOptions((prev) => resetValues(prev));
+        // setInputs({
+        //   answer: null,
+        // });
+        // router.push("/admin/tests");
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +67,7 @@ export default function Page({ params: { testId } }) {
         const { data } = await adminRequest.get(`/questions/${testId}`, {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         });
-        // console.log(data);
+        // console.log({ apiDate: data });
         if (data.length > 0) {
           setQuestionStates([]);
         }

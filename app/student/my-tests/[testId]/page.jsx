@@ -77,7 +77,7 @@ const Page = ({ params: { testId } }) => {
           }
         );
         setQuestions(data);
-        // console.log(data);
+        console.log(data);
         setAnswers(data.map((item) => item.answer));
         const userAnswersObj = {};
 
@@ -143,30 +143,6 @@ const Page = ({ params: { testId } }) => {
     }
   }, [shouldSubmit]);
 
-  useEffect(() => {
-    const confirmPageExit = (e) => {
-      e.preventDefault();
-      e.returnValue =
-        "Are you sure you want to leave this page? Your progress may be lost.";
-
-      // Show a confirmation dialog
-      const userResponse = window.confirm(e.returnValue);
-
-      if (userResponse) {
-        // Defer the function call with setTimeout
-        setTimeout(() => {
-          handleSubmitTest();
-        }, 100); // Adjust the delay as needed
-      }
-    };
-
-    window.addEventListener("beforeunload", confirmPageExit);
-
-    return () => {
-      window.removeEventListener("beforeunload", confirmPageExit);
-    };
-  }, []);
-
   return (
     <section>
       <p className="text-xl font-bold mb-8 text-end">{`Time left: ${formatTime(
@@ -203,7 +179,8 @@ const Page = ({ params: { testId } }) => {
                         className="flex justify-end text-lg font-bold"
                         key={key}
                       >
-                        {`${item > 0 ? "+" : ""}${item}`}
+                        {/* {`${item > 0 ? "+" : ""}${item}`} */}
+                        {item}
                       </div>
                     );
                   })}
