@@ -134,24 +134,26 @@ export default function StudentTable() {
   const columns = [
     {
       name: "Id",
-      selector: (row) => row.id,
-      width: "5rem",
+      selector: (row, key) => key + 1,
+      width: "5%",
       sortable: true,
     },
     {
       name: "Name",
       selector: (row) => row.fullname,
       sortable: true,
-      width: "10%",
+      width: "8%",
     },
     {
       name: "Email",
       selector: (row) => row.email,
       sortable: true,
+      width: "10%",
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
+      width: "10%",
     },
     {
       name: "City",
@@ -159,8 +161,8 @@ export default function StudentTable() {
     },
     {
       name: "Created At",
-      selector: (row) => formatDateToIST(row.created_at),
-      width: "15%",
+      selector: (row) => new Date(row.created_at).toLocaleDateString(),
+      width: "8%",
     },
     {
       name: "Expire",
@@ -168,7 +170,7 @@ export default function StudentTable() {
         row.expiration_date === null
           ? "Not defined!"
           : new Date(row.expiration_date).toLocaleDateString(),
-      width: "15%",
+      width: "8%",
     },
     {
       name: "Disabled",
@@ -206,7 +208,7 @@ export default function StudentTable() {
           <span className="slider"></span>
         </label>
       ),
-      width: "8%",
+      width: "10%",
     },
     {
       name: "Credentials",
@@ -284,7 +286,6 @@ export default function StudentTable() {
           data={students}
           pagination
           progressPending={isLoading}
-          paginationServer
         />
       </div>
     </>

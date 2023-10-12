@@ -118,7 +118,6 @@ export default function ResultTable() {
           data={results}
           pagination
           progressPending={isLoading}
-          paginationServer
         />
       </div>
     </div>

@@ -110,7 +110,6 @@ export default function LevelTable() {
           data={grades}
           pagination
           progressPending={isLoading}
-          paginationServer
         />
       </div>
     </>

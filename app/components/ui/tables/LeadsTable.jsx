@@ -1,9 +1,6 @@
 "use client";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { adminRequest } from "@/app/lib/requestMethods";
-import { AiOutlineDelete } from "react-icons/ai";
-import { BsPencilSquare } from "react-icons/bs";
 import { toast } from "react-hot-toast";
 import { getCookie } from "@/app/lib/cookies";
 import DataTable from "react-data-table-component";
@@ -45,96 +42,96 @@ export default function LeadsTable() {
     }
   };
 
-  async function generateCredentials(studentId) {
-    try {
-      const resp = await adminRequest.post(`/credentials/${studentId}`, null, {
-        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
-      });
-      if (resp.status === 200) {
-        toast.success(resp.data.message);
-        // console.log(resp.data);
-        setStudents((prev) =>
-          prev.map((item) => {
-            if (item.id === studentId) {
-              return {
-                ...item,
-                is_subscribed: true,
-                credentials_created: true,
-              };
-            }
-            return item;
-          })
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function generateCredentials(studentId) {
+  //   try {
+  //     const resp = await adminRequest.post(`/credentials/${studentId}`, null, {
+  //       headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+  //     });
+  //     if (resp.status === 200) {
+  //       toast.success(resp.data.message);
+  //       // console.log(resp.data);
+  //       setStudents((prev) =>
+  //         prev.map((item) => {
+  //           if (item.id === studentId) {
+  //             return {
+  //               ...item,
+  //               is_subscribed: true,
+  //               credentials_created: true,
+  //             };
+  //           }
+  //           return item;
+  //         })
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  async function updateStudent({ id, data }) {
-    // console.log(data);
-    if ("is_disabled" in data) {
-      setStudents((prev) =>
-        prev.map((item) => {
-          if (item.id === id) {
-            return { ...item, is_disabled: data.is_disabled };
-          }
-          return item;
-        })
-      );
-    } else {
-      setStudents((prev) =>
-        prev.map((item) => {
-          if (item.id === id) {
-            return { ...item, payment_received: data.payment_received };
-          }
-          return item;
-        })
-      );
-    }
+  // async function updateStudent({ id, data }) {
+  //   // console.log(data);
+  //   if ("is_disabled" in data) {
+  //     setStudents((prev) =>
+  //       prev.map((item) => {
+  //         if (item.id === id) {
+  //           return { ...item, is_disabled: data.is_disabled };
+  //         }
+  //         return item;
+  //       })
+  //     );
+  //   } else {
+  //     setStudents((prev) =>
+  //       prev.map((item) => {
+  //         if (item.id === id) {
+  //           return { ...item, payment_received: data.payment_received };
+  //         }
+  //         return item;
+  //       })
+  //     );
+  //   }
 
-    try {
-      const resp = await adminRequest.put(
-        `/students/${id}`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("admin_token")}`,
-          },
-        }
-      );
-      // console.log(resp.data);
-    } catch (error) {
-      console.log(error);
-      toast.error("Some error occurred while updating!");
-      setStudents((prev) =>
-        prev.map((item) => {
-          if (item.id === id) {
-            return { ...item, is_subscribed: !data.is_subscribed };
-          }
-          return item;
-        })
-      );
-    }
-  }
+  //   try {
+  //     const resp = await adminRequest.put(
+  //       `/students/${id}`,
+  //       { ...data },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${getCookie("admin_token")}`,
+  //         },
+  //       }
+  //     );
+  //     // console.log(resp.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Some error occurred while updating!");
+  //     setStudents((prev) =>
+  //       prev.map((item) => {
+  //         if (item.id === id) {
+  //           return { ...item, is_subscribed: !data.is_subscribed };
+  //         }
+  //         return item;
+  //       })
+  //     );
+  //   }
+  // }
 
-  function handleSearch(e) {
-    const inputValue = e.target.value.toLowerCase();
+  // function handleSearch(e) {
+  //   const inputValue = e.target.value.toLowerCase();
 
-    if (inputValue === "") {
-      getStudents();
-    } else {
-      const data = students.filter((item) =>
-        item.fullname.toLowerCase().includes(inputValue)
-      );
-      setStudents(data);
-    }
-  }
+  //   if (inputValue === "") {
+  //     getStudents();
+  //   } else {
+  //     const data = students.filter((item) =>
+  //       item.fullname.toLowerCase().includes(inputValue)
+  //     );
+  //     setStudents(data);
+  //   }
+  // }
 
   const columns = [
     {
       name: "Id",
-      selector: (row) => row.id,
+      selector: (row, key) => key + 1,
       //   width: "5rem",
       sortable: true,
     },
@@ -172,7 +169,6 @@ export default function LeadsTable() {
           data={students}
           pagination
           progressPending={isLoading}
-          paginationServer
         />
       </div>
     </>

@@ -246,7 +246,6 @@ export default function TestTable() {
           pagination
           customStyles={customStyles}
           progressPending={isLoading}
-          paginationServer
           fixedHeader
         />
       </div>
