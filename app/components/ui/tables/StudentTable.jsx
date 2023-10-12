@@ -157,7 +157,8 @@ export default function StudentTable() {
     },
     {
       name: "Package",
-      selector: (row) => row.package,
+      selector: (row) =>
+        row.package === "polympiad" ? "practice + olympiad" : row.package,
     },
     {
       name: "Created At",
