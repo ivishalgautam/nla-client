@@ -153,8 +153,10 @@ const Page = ({ params: { testId } }) => {
       const userResponse = window.confirm(e.returnValue);
 
       if (userResponse) {
-        // Reload the window if the user clicks "OK"
-        handleSubmitTest();
+        // Defer the function call with setTimeout
+        setTimeout(() => {
+          handleSubmitTest();
+        }, 100); // Adjust the delay as needed
       }
     };
 
