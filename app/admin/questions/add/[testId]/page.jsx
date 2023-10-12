@@ -64,7 +64,7 @@ export default function Page({ params: { testId } }) {
   useEffect(() => {
     (async function () {
       try {
-        const { data } = await publicRequest.get(`/questions/${testId}`, {
+        const { data } = await adminRequest.get(`/questions/${testId}`, {
           headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         });
         // console.log(data);
