@@ -16,7 +16,7 @@ export default function LoginPage() {
     } else {
       router.replace("https://nlaacademy.in/login.php");
     }
-  }, []);
+  }, [getCookie("student_id")]);
 
   useEffect(() => {
     async function login(username, password) {

@@ -23,10 +23,10 @@ export default function TestCard({ test }) {
             <th className="py-2 bg-gray-300 w-[30%] text-sm">Name</th>
             <td className="p-2 w-[70%]">{test.name}</td>
           </tr>
-          <tr className="w-full flex border-b">
+          {/* <tr className="w-full flex border-b">
             <th className="py-2 bg-gray-300 w-[30%] text-sm">Grade</th>
             <td className="p-2 w-[70%]">{test.grade}</td>
-          </tr>
+          </tr> */}
           <tr className="w-full flex border-b">
             <th className="py-2 bg-gray-300 w-[30%] text-sm">Type</th>
             <td className="p-2 w-[70%]">{test.test_type}</td>
