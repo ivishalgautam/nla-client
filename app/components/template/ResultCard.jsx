@@ -74,25 +74,26 @@ export default function ResultCard({ result }) {
           View answer sheet
         </Link>
 
-        {result[0]?.test_type !== "practice" && (
-          <PDFDownloadLink
-            document={<Pdf result={result[0]} />}
-            filename="FORM"
-            className="col-span-2"
-          >
-            {({ loading }) =>
-              loading ? (
-                <button className="w-full py-2 bg-primary rounded text-white">
-                  Loading Document...
-                </button>
-              ) : (
-                <button className="w-full py-2 bg-primary rounded text-white">
-                  Download Certificate
-                </button>
-              )
-            }
-          </PDFDownloadLink>
-        )}
+        {result[0]?.test_type !== "practice" &&
+          result[0]?.test_type !== "eligibility" && (
+            <PDFDownloadLink
+              document={<Pdf result={result[0]} />}
+              filename="FORM"
+              className="col-span-2"
+            >
+              {({ loading }) =>
+                loading ? (
+                  <button className="w-full py-2 bg-primary rounded text-white">
+                    Loading Document...
+                  </button>
+                ) : (
+                  <button className="w-full py-2 bg-primary rounded text-white">
+                    Download Certificate
+                  </button>
+                )
+              }
+            </PDFDownloadLink>
+          )}
       </div>
     </div>
   );

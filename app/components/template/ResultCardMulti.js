@@ -72,25 +72,26 @@ export default function ResultCardMulti({ result, path }) {
           View answer sheet
         </Link>
 
-        {result?.test_type !== "practice" && (
-          <PDFDownloadLink
-            document={<Pdf result={result} />}
-            filename="FORM"
-            className="col-span-2"
-          >
-            {({ loading }) =>
-              loading ? (
-                <button className="w-full py-2 bg-primary rounded text-white">
-                  Loading Document...
-                </button>
-              ) : (
-                <button className="w-full py-2 bg-primary rounded text-white">
-                  Download Certificate
-                </button>
-              )
-            }
-          </PDFDownloadLink>
-        )}
+        {result?.test_type !== "practice" &&
+          result?.test_type !== "eligibility" && (
+            <PDFDownloadLink
+              document={<Pdf result={result} />}
+              filename="FORM"
+              className="col-span-2"
+            >
+              {({ loading }) =>
+                loading ? (
+                  <button className="w-full py-2 bg-primary rounded text-white">
+                    Loading Document...
+                  </button>
+                ) : (
+                  <button className="w-full py-2 bg-primary rounded text-white">
+                    Download Certificate
+                  </button>
+                )
+              }
+            </PDFDownloadLink>
+          )}
       </div>
     </div>
   );
