@@ -27,7 +27,7 @@ export default function StudentLayout({ children }) {
         .catch((error) => {
           // console.log({ error });
           clearAllCookies();
-          return router.replace("/auth/login/student");
+          router.replace("/auth/login/student");
         });
     }
   }, []);

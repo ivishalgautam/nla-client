@@ -11,14 +11,6 @@ export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (getCookie("student_id")) {
-      return router.push("/student/profile");
-    } else {
-      router.replace("https://nlaacademy.in/login.php");
-    }
-  }, [getCookie("student_id")]);
-
-  useEffect(() => {
     async function login(username, password) {
       try {
         const { data, status } = await authRequest.post("/login", {
@@ -38,9 +30,8 @@ export default function LoginPage() {
 
           router.push("/student/profile");
         }
-
-        // console.log(data);
       } catch (error) {
+        router.replace("https://nlaacademy.in/login.php");
         // toast.error(error.response.data.message);
         console.log(error);
       }
