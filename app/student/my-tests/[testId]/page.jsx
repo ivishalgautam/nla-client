@@ -143,6 +143,28 @@ const Page = ({ params: { testId } }) => {
     }
   }, [shouldSubmit]);
 
+  useEffect(() => {
+    const confirmPageExit = (e) => {
+      e.preventDefault();
+      e.returnValue =
+        "Are you sure you want to leave this page? Your progress may be lost.";
+
+      // Show a confirmation dialog
+      const userResponse = window.confirm(e.returnValue);
+
+      if (userResponse) {
+        // Reload the window if the user clicks "OK"
+        handleSubmitTest();
+      }
+    };
+
+    window.addEventListener("beforeunload", confirmPageExit);
+
+    return () => {
+      window.removeEventListener("beforeunload", confirmPageExit);
+    };
+  }, []);
+
   return (
     <section>
       <p className="text-xl font-bold mb-8 text-end">{`Time left: ${formatTime(
