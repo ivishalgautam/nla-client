@@ -65,7 +65,7 @@ export default function Page({ params: { testId } }) {
     (async function () {
       try {
         const { data } = await adminRequest.get(`/questions/${testId}`, {
-          headers: { Authorization: `Bearer ${getCookie("student_token")}` },
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         });
         // console.log(data);
         if (data.length > 0) {
