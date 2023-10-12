@@ -156,8 +156,8 @@ export default function StudentTable() {
       width: "10%",
     },
     {
-      name: "City",
-      selector: (row) => row.city,
+      name: "Package",
+      selector: (row) => row.package,
     },
     {
       name: "Created At",
