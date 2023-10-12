@@ -42,6 +42,8 @@ export default function LoginPage() {
 
     if (u && p) {
       login(u, p);
+    } else {
+      router.replace("https://nlaacademy.in/login.php");
     }
   }, []);
 
