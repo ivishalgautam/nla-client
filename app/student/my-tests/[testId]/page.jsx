@@ -106,13 +106,14 @@ const Page = ({ params: { testId } }) => {
           headers: { Authorization: `Bearer ${getCookie("student_token")}` },
         }
       );
+
       const timeArr = data?.duration?.split(" ");
       if (timeArr && timeArr[1] === "minute") {
-        setDuration(timeArr[0] * 60 * 1000);
+        setDuration(parseInt(timeArr[0]) * 60 * 1000);
       }
 
       if (timeArr && timeArr[1] === "hour") {
-        setDuration(timeArr[0] * 60 * 60 * 1000);
+        setDuration(parseInt(timeArr[0]) * 60 * 60 * 1000);
       }
     })();
   }, []);
@@ -127,7 +128,7 @@ const Page = ({ params: { testId } }) => {
             setShouldSubmit(true);
             return 0;
           }
-          prevSeconds - 1000;
+          return prevSeconds - 1000;
         });
         setCountDown((prevCountdown) => prevCountdown + 1000);
       }, 1000); // Update every 1 second (1000 milliseconds)
