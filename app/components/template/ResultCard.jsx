@@ -17,9 +17,16 @@ export default function ResultCard({ result }) {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 max-w-[25rem] mx-auto">
-      <span className="bg-gray-500 tracking-wide text-white font-semibold rounded px-2 py-1 text-xs capitalize">
-        {result[0]?.test_type}
-      </span>
+      <div className="flex items-center justify-between">
+        <span className="bg-gray-500 tracking-wide text-white font-semibold rounded px-2 py-1 text-xs capitalize">
+          {result[0]?.test_type}
+        </span>
+        <span className="bg-gray-500 tracking-wide text-white font-semibold rounded px-2 py-1 text-xs capitalize">
+          {`Time taken: ${
+            result[0]?.time_taken ? result[0]?.time_taken : "N/a"
+          }`}
+        </span>
+      </div>
       <div className="grade">
         <div
           className={`${
