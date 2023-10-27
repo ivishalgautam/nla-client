@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 
 export default function Page({ params: { testId } }) {
   const router = useRouter;
+  const [isLoading, setIsLoading] = useState(false);
   const [questionStates, setQuestionStates] = useState([
     {
       heading: "",
@@ -25,6 +26,7 @@ export default function Page({ params: { testId } }) {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const resp = await adminRequest.post(
         "/questions",
@@ -39,7 +41,7 @@ export default function Page({ params: { testId } }) {
 
       if (resp.status === 200) {
         toast.success(resp.data.message);
-
+        setIsLoading(false);
         // setOptions((prev) => resetValues(prev));
         // setInputs({
         //   answer: null,
@@ -48,6 +50,7 @@ export default function Page({ params: { testId } }) {
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
@@ -100,9 +103,19 @@ export default function Page({ params: { testId } }) {
               questionStates={questionStates}
               setQuestionStates={setQuestionStates}
             />
-            <button className="bg-primary text-white rounded-md py-2">
-              Submit
-            </button>
+            {isLoading ? (
+              <button
+                type="button"
+                disabled
+                className="bg-primary text-white rounded-md py-2 cursor-not-allowed"
+              >
+                Questions adding...
+              </button>
+            ) : (
+              <button className="bg-primary text-white rounded-md py-2">
+                Submit
+              </button>
+            )}
           </div>
         </div>
       </div>
