@@ -149,7 +149,7 @@ const Page = ({ params: { testId } }) => {
   return (
     <section>
       <p className="text-xl font-bold mb-8 text-end fixed top-2 right-2 bg-primary text-white p-3 rounded-md">{`Time left: ${formatTime(
-        duration
+        parseInt(duration)
       )}`}</p>
       <div className="grid grid-cols-6 gap-4">
         {isLoading ? (
