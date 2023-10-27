@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 const Page = ({ params: { testId } }) => {
   const [shouldSubmit, setShouldSubmit] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [countDown, setCountDown] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
   const [points, setPoints] = useState({
     totalPoints: null,
@@ -50,6 +51,7 @@ const Page = ({ params: { testId } }) => {
           total_questions: questions.length,
           grade: calculateGrade(TP, points.totalPoints, questions.length),
           user_answers: Object.values(userAnswers),
+          time_taken: formatTime(countDown),
         },
         {
           headers: { Authorization: `Bearer ${getCookie("student_token")}` },
@@ -77,7 +79,7 @@ const Page = ({ params: { testId } }) => {
           }
         );
         setQuestions(data);
-        console.log(data);
+        // console.log(data);
         setAnswers(data.map((item) => item.answer));
         const userAnswersObj = {};
 
@@ -125,8 +127,9 @@ const Page = ({ params: { testId } }) => {
             setShouldSubmit(true);
             return 0;
           }
-          return prevSeconds - 1000;
+          prevSeconds - 1000;
         });
+        setCountDown((prevCountdown) => prevCountdown + 1000);
       }, 1000); // Update every 1 second (1000 milliseconds)
     } else {
       clearInterval(interval);
@@ -145,7 +148,7 @@ const Page = ({ params: { testId } }) => {
 
   return (
     <section>
-      <p className="text-xl font-bold mb-8 text-end">{`Time left: ${formatTime(
+      <p className="text-xl font-bold mb-8 text-end fixed top-2 right-2 bg-white p-3 rounded-md">{`Time left: ${formatTime(
         duration
       )}`}</p>
       <div className="grid grid-cols-6 gap-4">

@@ -11,6 +11,7 @@ import { getCookie } from "@/app/lib/cookies";
 export default function TestTable() {
   const [tests, setTests] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchType, setSearchType] = useState("");
 
   async function getTests() {
     setIsLoading(true);
@@ -206,9 +207,29 @@ export default function TestTable() {
     if (inputValue === "") {
       getTests();
     } else {
-      const data = tests.filter((item) =>
-        item.name.toLowerCase().includes(inputValue)
-      );
+      let data = [];
+      switch (searchType) {
+        case "name":
+          data = tests.filter((item) =>
+            item.name.toLowerCase().includes(inputValue)
+          );
+          break;
+        case "grade":
+          data = tests.filter((item) =>
+            item.grade_name.toLowerCase().includes(inputValue)
+          );
+          break;
+        case "subject":
+          data = tests.filter((item) =>
+            item.subject.toLowerCase().includes(inputValue)
+          );
+          break;
+
+        default:
+          toast.error("Please select search type!");
+          break;
+      }
+
       setTests(data);
     }
   }
@@ -216,7 +237,25 @@ export default function TestTable() {
   return (
     <>
       <div className="mb-4 flex items-center justify-between w-full">
-        <div>
+        <div className="flex items-center justify-center gap-2">
+          <div className="relative">
+            <select
+              name="search_type"
+              id="search_type"
+              className="my-input peer"
+              onChange={(e) => setSearchType(e.target.value)}
+            >
+              <option hidden disabled value="" selected>
+                Select type
+              </option>
+              <option value="name">Name</option>
+              <option value="grade">Grade</option>
+              <option value="subject">Subject</option>
+            </select>
+            <label htmlFor="search_type" className="my-label">
+              Search type
+            </label>
+          </div>
           <div className="relative">
             <input
               type="text"

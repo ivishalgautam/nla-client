@@ -8,6 +8,7 @@ export default function TestCard({ test }) {
   function handleNavigate(id) {
     router.replace(`/student/my-tests/instructions/${id}`);
   }
+  console.log(test);
 
   const isTestStarted = new Date() > new Date(test?.start_time);
 
@@ -23,10 +24,6 @@ export default function TestCard({ test }) {
             <th className="py-2 bg-gray-300 w-[30%] text-sm">Name</th>
             <td className="p-2 w-[70%]">{test.name}</td>
           </tr>
-          {/* <tr className="w-full flex border-b">
-            <th className="py-2 bg-gray-300 w-[30%] text-sm">Grade</th>
-            <td className="p-2 w-[70%]">{test.grade}</td>
-          </tr> */}
           <tr className="w-full flex border-b">
             <th className="py-2 bg-gray-300 w-[30%] text-sm">Type</th>
             <td className="p-2 w-[70%]">{test.test_type}</td>
@@ -47,7 +44,7 @@ export default function TestCard({ test }) {
         {isTestStarted ? (
           <button
             onClick={() => handleNavigate(test.id)}
-            className="bg-primary hover:brightness-90 w-full rounded p-2 inline-block text-center text-white  font-bold"
+            className="bg-primary hover:brightness-90 w-full rounded p-2 inline-block text-center text-white font-bold"
           >
             Start test
           </button>
