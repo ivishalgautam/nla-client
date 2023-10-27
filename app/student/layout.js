@@ -42,7 +42,7 @@ export default function StudentLayout({ children }) {
         <div className="col-span-1">
           <StudentSidebar />
         </div>
-        <div className="col-span-4 bg-gray-100 p-8">
+        <div className="col-span-4 bg-gray-100 p-8 max-h-screen overflow-scroll">
           <div className="flex items-center justify-start mb-4">
             <button
               onClick={handleGoBack}
