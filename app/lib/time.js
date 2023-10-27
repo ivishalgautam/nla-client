@@ -1,11 +1,11 @@
 export const formatTime = (milliseconds) => {
-  const hours = Math.floor(parseInt(milliseconds) / 3600000);
-  const minutes = Math.floor((parseInt(milliseconds) % 3600000) / 60000);
-  const seconds = ((parseInt(milliseconds) % 60000) / 1000).toFixed(0);
+  const hours = Math.floor(milliseconds / 3600000);
+  const minutes = Math.floor((milliseconds % 3600000) / 60000);
+  const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
 
-  return `${parseInt(hours)}:${parseInt(minutes) < 10 ? "0" : ""}${parseInt(
-    minutes
-  )}:${parseInt(seconds) < 10 ? "0" : ""}${parseInt(seconds)}`;
+  return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
+    seconds < 10 ? "0" : ""
+  }${seconds}`;
 };
 
 export function formatDateToIST(inputDate) {
