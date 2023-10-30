@@ -96,7 +96,6 @@ export default function AddTestPage() {
 
   useEffect(() => {
     const startTime = new Date(inputs.start_time);
-    startTime.setHours(9, 0, 0, 0);
     setSelectedDate((prev) => ({
       ...prev,
       start: startTime,
@@ -105,14 +104,13 @@ export default function AddTestPage() {
 
   useEffect(() => {
     const endTime = new Date(inputs.end_time);
-    endTime.setHours(21, 0, 0, 0);
     setSelectedDate((prev) => ({
       ...prev,
       end: endTime,
     }));
   }, [inputs.end_time]);
 
-  // console.log(inputs);
+  console.log(inputs);
 
   return (
     <section>

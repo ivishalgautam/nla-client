@@ -46,7 +46,7 @@ export default function UpdateTestPage({ params: { testId } }) {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
       setInstructions(resp.data.instructions);
-      // console.log(resp.data);
+      console.log(resp.data);
       for (const [key, value] of Object.entries(resp.data)) {
         if (key in inputs) {
           setInputs((prev) => ({ ...prev, [key]: value }));
@@ -96,7 +96,6 @@ export default function UpdateTestPage({ params: { testId } }) {
 
   useEffect(() => {
     const startTime = new Date(inputs.start_time);
-    startTime.setHours(9, 0, 0, 0);
     setSelectedDate((prev) => ({
       ...prev,
       start: startTime,
@@ -105,7 +104,6 @@ export default function UpdateTestPage({ params: { testId } }) {
 
   useEffect(() => {
     const endTime = new Date(inputs.end_time);
-    endTime.setHours(21, 0, 0, 0);
     setSelectedDate((prev) => ({
       ...prev,
       end: endTime,
@@ -122,7 +120,7 @@ export default function UpdateTestPage({ params: { testId } }) {
 
   return (
     <section>
-      <h2 className="section-heading">Add new test</h2>
+      <h2 className="section-heading">Update test</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="grid grid-cols-3 gap-y-2 gap-x-4">
           {/* name */}
@@ -235,8 +233,8 @@ export default function UpdateTestPage({ params: { testId } }) {
           {/* start time */}
           <div className="relative flex flex-col justify-end">
             <input
-              type="date"
-              value={new Date(inputs.start_time).toISOString().split("T")[0]}
+              type="datetime-local"
+              value={new Date(inputs.start_time).toISOString().split(".")[0]}
               onChange={(e) => handleDateChange(e, "start")}
               className="bg-white my-input mt-2"
               min={new Date().toISOString().split("T")[0]}
@@ -250,8 +248,8 @@ export default function UpdateTestPage({ params: { testId } }) {
           {/* end time */}
           <div className="relative flex flex-col justify-end">
             <input
-              type="date"
-              value={new Date(inputs.end_time).toISOString().split("T")[0]}
+              type="datetime-local"
+              value={new Date(inputs.end_time).toISOString().split(".")[0]}
               onChange={(e) => handleDateChange(e, "end")}
               className="bg-white my-input mt-2"
               min={new Date().toISOString().split("T")[0]}

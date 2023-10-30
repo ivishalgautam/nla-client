@@ -19,7 +19,7 @@ export default function TestTable() {
       const resp = await adminRequest.get("/tests", {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
-      console.log(resp.data);
+      // console.log(resp.data);
       setTests(resp.data);
       setIsLoading(false);
     } catch (error) {
