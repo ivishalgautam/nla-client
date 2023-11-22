@@ -58,7 +58,7 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
                     questions.studentAnswers[key] === null
                       ? "border-yellow-500"
                       : String(answer.trim()) !==
-                        String(questions.studentAnswers[key])
+                        String(questions.studentAnswers[key].trim())
                       ? "border-red-500"
                       : "border-primary"
                   }`}
