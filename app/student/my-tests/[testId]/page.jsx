@@ -217,6 +217,7 @@ const Page = ({ params: { testId } }) => {
                     className="bg-gray-100 w-full text-end px-1 py-3 rounded outline-none"
                     placeholder="Answer"
                     name={id}
+                    autoComplete="off"
                     onChange={(e) => {
                       setUserAnswers((prev) => ({
                         ...prev,
