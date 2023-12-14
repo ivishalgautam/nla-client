@@ -118,6 +118,13 @@ export default function UpdateTestPage({ params: { testId } }) {
     setInputs((prev) => ({ ...prev, instruction: "" }));
   }
 
+  function getFormattedDate(date) {
+    const parsedDate = new Date(date);
+    parsedDate.setMinutes(parsedDate.getMinutes() + 5.5 * 60);
+    const formattedDateString = parsedDate.toISOString();
+    return String(formattedDateString).split(".")[0];
+  }
+
   return (
     <section>
       <h2 className="section-heading">Update test</h2>
@@ -234,7 +241,8 @@ export default function UpdateTestPage({ params: { testId } }) {
           <div className="relative flex flex-col justify-end">
             <input
               type="datetime-local"
-              value={new Date(inputs.start_time).toISOString().split(".")[0]}
+              // value={new Date(inputs.start_time).toISOString().split(".")[0]}
+              value={getFormattedDate(inputs.start_time)}
               onChange={(e) => handleDateChange(e, "start")}
               className="bg-white my-input mt-2"
               min={new Date().toISOString().split("T")[0]}
@@ -249,7 +257,8 @@ export default function UpdateTestPage({ params: { testId } }) {
           <div className="relative flex flex-col justify-end">
             <input
               type="datetime-local"
-              value={new Date(inputs.end_time).toISOString().split(".")[0]}
+              // value={new Date(inputs.end_time).toISOString().split(".")[0]}
+              value={getFormattedDate(inputs.end_time)}
               onChange={(e) => handleDateChange(e, "end")}
               className="bg-white my-input mt-2"
               min={new Date().toISOString().split("T")[0]}
