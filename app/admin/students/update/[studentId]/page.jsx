@@ -20,7 +20,7 @@ export default function StudentUpdate({ params: { studentId } }) {
     subject: "",
     school_name: "",
     grade: "",
-    classs: "",
+    class: "",
     package: "",
     expiration_date: "",
     test_assigned: [],
@@ -105,12 +105,14 @@ export default function StudentUpdate({ params: { studentId } }) {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         });
 
+        console.log({ resp });
+
         for (const [key, value] of Object.entries(resp.data)) {
           if (key in inputVals) {
             setInputVals((prev) => ({ ...prev, [key]: value }));
           }
           if (key === "class") {
-            setInputVals((prev) => ({ ...prev, classs: value }));
+            setInputVals((prev) => ({ ...prev, class: value }));
           }
         }
 
@@ -344,12 +346,12 @@ export default function StudentUpdate({ params: { studentId } }) {
           <div className="relative flex flex-col justify-end">
             <input
               type="text"
-              id="classs"
-              name="classs"
+              id="class"
+              name="class"
               className="my-input peer"
               placeholder=""
               autoComplete="off"
-              value={inputVals.classs}
+              value={inputVals.class}
               onChange={handleOnChange}
               required
             />
