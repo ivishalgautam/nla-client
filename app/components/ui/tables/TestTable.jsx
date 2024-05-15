@@ -19,7 +19,7 @@ export default function TestTable() {
       const resp = await adminRequest.get("/tests", {
         headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
       });
-      // console.log(resp.data);
+      console.log(resp.data);
       setTests(resp.data);
       setIsLoading(false);
     } catch (error) {
@@ -215,8 +215,10 @@ export default function TestTable() {
           );
           break;
         case "grade":
-          data = tests.filter((item) =>
-            item.grade_name.toLowerCase().includes(inputValue)
+          data = tests.filter(
+            (item) =>
+              item.grade_name &&
+              item.grade_name.toLowerCase().includes(inputValue)
           );
           break;
         case "subject":

@@ -21,7 +21,7 @@ export default function CreateStudentPage() {
     pincode: "",
     subject: "",
     grade: "",
-    classs: "",
+    class: "",
     package: "",
     test_assigned: [],
   });
@@ -270,12 +270,12 @@ export default function CreateStudentPage() {
           <div className="relative flex flex-col justify-end">
             <input
               type="text"
-              id="classs"
-              name="classs"
+              id="class"
+              name="class"
               className="my-input peer"
               placeholder=""
               autoComplete="off"
-              value={inputVals.classs}
+              value={inputVals.class}
               onChange={handleOnChange}
               required
             />
