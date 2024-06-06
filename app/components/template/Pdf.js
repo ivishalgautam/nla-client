@@ -7,8 +7,8 @@ import {
   StyleSheet,
   View,
 } from "@react-pdf/renderer";
-import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpg";
-import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpg";
+import AbacusCertificateTemplate from "/abacus-olympiad-certificate.jpg";
+import VedicCertificateTemplate from "/vedic-olympiad-certificate.jpg";
 
 const styles = StyleSheet.create({
   title: {
