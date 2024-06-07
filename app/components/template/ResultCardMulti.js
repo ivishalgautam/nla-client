@@ -14,6 +14,7 @@ import {
 import Pdf from "./Pdf";
 
 export default function ResultCardMulti({ result, path }) {
+  console.log({ result });
   return (
     <div className="bg-white shadow-md rounded-md p-4 max-w-[25rem] mx-auto">
       <div className="flex items-center justify-between">

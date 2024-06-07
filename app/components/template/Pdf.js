@@ -133,7 +133,11 @@ const Pdf = ({ result }) => {
               transform: "translateX(-50%)",
             }}
           >
-            {new Date(result?.held_on).toDateString()}
+            {new Date(result?.held_on).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </Text>
         </View>
 
