@@ -9,8 +9,8 @@ import {
 } from "@react-pdf/renderer";
 // import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpg";
 // import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpg";
-import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpg";
-import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpg";
+import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate-1.jpg";
+import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate-1.jpg";
 
 const styles = StyleSheet.create({
   title: {
