@@ -32,7 +32,6 @@ export default function StudentResultPage() {
       const resp = await publicRequest.get(`/results/${id}`, {
         headers: { Authorization: `Bearer ${getCookie("student_token")}` },
       });
-      console.log(resp.data);
       setResults(resp.data);
       const tp = Math.ceil(resp.data.length / resultsPerPage);
       setTotalPages(tp);
