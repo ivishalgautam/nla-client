@@ -4,9 +4,11 @@ export const formatTime = (milliseconds) => {
   const minutes = Math.floor((milliseconds % 3600000) / 60000);
   const seconds = ((milliseconds % 60000) / 1000).toFixed(0);
 
-  return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
-    seconds < 10 ? "0" : ""
-  }${seconds}`;
+  const paddedHours = hours.toString().padStart(2, "0");
+  const paddedMinutes = minutes.toString().padStart(2, "0");
+  const paddedSeconds = seconds.toString().padStart(2, "0");
+
+  return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
 };
 
 export function formatDateToIST(inputDate) {

@@ -15,10 +15,9 @@ const poppins = Poppins({
 export default function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
-    console.log("render");
     if (!getCookie("admin_token")) {
       router.push("/auth/login/admin");
-      // alert("token not found");
+      alert("token not found");
     } else {
       authRequest
         .get("/validate", {
@@ -27,7 +26,8 @@ export default function AdminLayout({ children }) {
         .then((resp) => resp.data)
         .catch((error) => {
           console.log(error);
-          clearAllCookies();
+          alert("token expired");
+          // clearAllCookies();
           router.replace("/auth/login/admin");
         });
     }

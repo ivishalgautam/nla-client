@@ -145,7 +145,7 @@ const Page = ({ params: { testId } }) => {
     if (isRunning) {
       interval = setInterval(() => {
         setDuration((prevSeconds) => {
-          if (prevSeconds === 0) {
+          if (prevSeconds <= 0) {
             setIsRunning(false);
             setShouldSubmit(true);
             return 0;
@@ -221,7 +221,7 @@ const Page = ({ params: { testId } }) => {
                     onChange={(e) => {
                       setUserAnswers((prev) => ({
                         ...prev,
-                        [e.target.name]: e.target.value,
+                        [e.target.name]: e.target.value.trim(),
                       }));
                     }}
                   />

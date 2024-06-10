@@ -287,6 +287,10 @@ export default function StudentTable() {
           data={students}
           pagination
           progressPending={isLoading}
+          paginationComponentOptions={{
+            selectAllRowsItem: true,
+            selectAllRowsItemText: "All",
+          }}
         />
       </div>
     </>
