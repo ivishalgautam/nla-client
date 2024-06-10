@@ -105,7 +105,7 @@ export default function StudentUpdate({ params: { studentId } }) {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         });
 
-        console.log({ resp });
+        // console.log({ resp });
 
         for (const [key, value] of Object.entries(resp.data)) {
           if (key in inputVals) {
@@ -351,7 +351,7 @@ export default function StudentUpdate({ params: { studentId } }) {
               className="my-input peer"
               placeholder=""
               autoComplete="off"
-              value={inputVals.class}
+              value={inputVals.grade}
               onChange={handleOnChange}
               required
             />
