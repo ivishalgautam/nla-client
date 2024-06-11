@@ -29,7 +29,6 @@ export default function StudentUpdate({ params: { studentId } }) {
   const [olympiadTests, setOlympiadTests] = useState([]);
   const [olympiadTestsOptions, setOlympiadTestsOptions] = useState([]);
   const [selectedTests, setSelectedTests] = useState([]);
-  console.log(inputVals);
 
   const router = useRouter();
 
@@ -47,7 +46,7 @@ export default function StudentUpdate({ params: { studentId } }) {
       );
       if (resp.status === 200) {
         toast.success("Student updated successfully.");
-        router.push("/admin/students");
+        router.back();
       }
     } catch (error) {
       console.log(error);
@@ -77,7 +76,7 @@ export default function StudentUpdate({ params: { studentId } }) {
       });
       if (resp.status === 200) {
         toast.success(resp.data.message);
-        router.push("/admin/students");
+        router.back();
       }
     }
   };

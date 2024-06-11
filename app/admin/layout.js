@@ -49,7 +49,7 @@ export default function AdminLayout({ children }) {
               onClick={handleGoBack}
               className="flex items-center justify-center gap-1 bg-primary rounded text-white px-2 py-1"
             >
-              <IoIosArrowBack size={20} /> Go Back
+              <IoIosArrowBack size={20} /> Back
             </button>
           </div>
           {children}

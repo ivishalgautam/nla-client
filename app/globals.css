@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer components {
+  .section-heading {
+    @apply text-3xl font-bold mb-4;
+  }
+
+  .my-input {
+    @apply w-full h-16 p-3 pt-4 placeholder-transparent border border-gray-200 rounded-md focus:outline-none focus:border-gray-500 focus:shadow-sm;
+  }
+  .my-label {
+    @apply absolute top-0 left-0 h-full px-3 tracking-wider py-5 text-sm transition-all duration-100 ease-in-out origin-left transform scale-75 translate-x-1 -translate-y-3 opacity-75 pointer-events-none peer-placeholder-shown:opacity-100 peer-focus:text-primary peer-focus:font-semibold peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-3 peer-placeholder-shown:translate-x-0 peer-focus:translate-x-1;
+  }
+
   .inputGroup {
     font-family: "Segoe UI", sans-serif;
     margin: 1em 0 1em 0;
@@ -60,16 +71,6 @@
   }
   .question-box p {
     font-size: 13px;
-  }
-  .section-heading {
-    @apply text-3xl font-bold mb-4;
-  }
-
-  .my-input {
-    @apply w-full h-16 p-3 pt-4 placeholder-transparent border border-gray-200 rounded-md focus:outline-none focus:border-gray-500 focus:shadow-sm;
-  }
-  .my-label {
-    @apply absolute top-0 left-0 h-full px-3 tracking-wider py-5 text-sm transition-all duration-100 ease-in-out origin-left transform scale-75 translate-x-1 -translate-y-3 opacity-75 pointer-events-none peer-placeholder-shown:opacity-100 peer-focus:text-primary peer-focus:font-semibold peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-3 peer-placeholder-shown:translate-x-0 peer-focus:translate-x-1;
   }
 
   /* custom switch */
