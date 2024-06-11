@@ -24,6 +24,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export function DataTable({ columns, data, totalPage, handleSearch }) {
   const router = useRouter();
@@ -49,13 +50,23 @@ export function DataTable({ columns, data, totalPage, handleSearch }) {
   });
   return (
     <div>
-      <div className="flex items-center py-4 gap-2">
-        <Input
-          placeholder="Search"
-          value={q.split("-").join(" ")}
-          onChange={(event) => handleSearch(event)}
-          className="max-w-sm"
-        />
+      <div className="flex justify-between items-center pb-4 gap-2">
+        <div>
+          <Input
+            placeholder="Search"
+            value={q.split("-").join(" ")}
+            onChange={(event) => handleSearch(event)}
+            className="max-w-sm"
+          />
+        </div>
+        <div>
+          <Link
+            href={`/admin/students/add`}
+            className="bg-emerald-500 rounded-md py-1 px-3 text-white"
+          >
+            Add Student
+          </Link>
+        </div>
       </div>
 
       <div className="rounded-md border">
