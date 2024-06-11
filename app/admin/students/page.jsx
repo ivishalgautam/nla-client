@@ -88,7 +88,7 @@ export default function StudentsPage() {
   async function updateStudent({ id, data }) {
     // console.log(data);
     if ("is_disabled" in data) {
-      setStudents((prev) =>
+      setFilteredStudents((prev) =>
         prev.map((item) => {
           if (item.id === id) {
             return { ...item, is_disabled: data.is_disabled };
@@ -97,7 +97,7 @@ export default function StudentsPage() {
         })
       );
     } else {
-      setStudents((prev) =>
+      setFilteredStudents((prev) =>
         prev.map((item) => {
           if (item.id === id) {
             return { ...item, payment_received: data.payment_received };
@@ -121,7 +121,7 @@ export default function StudentsPage() {
     } catch (error) {
       console.log(error);
       toast.error("Some error occurred while updating!");
-      setStudents((prev) =>
+      setFilteredStudents((prev) =>
         prev.map((item) => {
           if (item.id === id) {
             return { ...item, is_subscribed: !data.is_subscribed };
