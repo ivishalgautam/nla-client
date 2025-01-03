@@ -146,7 +146,7 @@ export default function StudentUpdate({ params: { studentId } }) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [studentId]);
 
   useEffect(() => {
     if (
@@ -165,10 +165,14 @@ export default function StudentUpdate({ params: { studentId } }) {
     );
 
     setOlympiadTestsOptions(
-      olympiadTests?.filter(
-        (item) =>
-          !inputVals?.test_assigned?.map((i) => parseInt(i)).includes(item.id)
-      )
+      olympiadTests?.length
+        ? olympiadTests?.filter(
+            (item) =>
+              !inputVals?.test_assigned
+                ?.map((i) => parseInt(i))
+                .includes(item.id)
+          )
+        : []
     );
   }, [inputVals.test_assigned, olympiadTests]);
 
@@ -186,7 +190,7 @@ export default function StudentUpdate({ params: { studentId } }) {
   }, [inputVals.test_assigned, handleSelectTest]);
 
   useEffect(() => {
-    setOlympiadTestsOptions(olympiadTests);
+    setOlympiadTestsOptions(olympiadTests?.length ? olympiadTests : []);
   }, [olympiadTests]);
 
   useEffect(() => {
@@ -307,6 +311,7 @@ export default function StudentUpdate({ params: { studentId } }) {
                 id="test_assigned"
                 onChange={handleOnChange}
                 className="my-input peer"
+                value={""}
               >
                 <option hidden>Select package</option>
                 {olympiadTestsOptions?.map((test) => {

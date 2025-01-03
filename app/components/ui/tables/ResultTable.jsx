@@ -3,6 +3,8 @@ import { getCookie } from "@/app/lib/cookies";
 import { adminRequest } from "@/app/lib/requestMethods";
 import { formatDateToIST } from "@/app/lib/time";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { parseAsInteger, useQueryState } from "nuqs";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FiExternalLink } from "react-icons/fi";
@@ -11,23 +13,23 @@ export default function ResultTable() {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function getResults() {
+  async function getResults({ page, limit }) {
     setIsLoading(true);
     try {
-      const resp = await adminRequest.get("/results", {
-        headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
-      });
-      setResults(resp.data);
+      const resp = await adminRequest.get(
+        `/results?page=${page}&limit=${limit}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
+        }
+      );
+      setResults(resp.data.results);
+      setTotalRows(resp.data.total);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
   }
-
-  useEffect(() => {
-    getResults();
-  }, []);
 
   function handleSearch(e) {
     const inputValue = e.target.value.toLowerCase();
@@ -43,46 +45,43 @@ export default function ResultTable() {
   }
 
   const columns = [
-    {
-      name: "Id",
-      selector: (row, key) => key + 1,
-      width: "4rem",
-      sortable: true,
-    },
+    // {
+    //   name: "Id",
+    //   selector: (row, key) => key + 1,
+    //   width: "4rem",
+    //   sortable: true,
+    // },
     {
       name: "Student Name",
       selector: (row) => row.fullname,
       sortable: true,
-      width: "10rem",
     },
     {
       name: "Test Name",
       selector: (row) => row.test_name,
       sortable: true,
-      width: "7rem",
     },
-    {
-      name: "Questions Attempted",
-      selector: (row) => row.student_attempted,
-      width: "10rem",
-    },
-    {
-      name: "Total Questions",
-      selector: (row) => row.total_questions,
-      width: "10rem",
-    },
-    {
-      name: "Student Points",
-      selector: (row) => row.student_points,
-    },
-    {
-      name: "Total Points",
-      selector: (row) => row.total_points,
-    },
+    // {
+    //   name: "Questions Attempted",
+    //   selector: (row) => row.student_attempted,
+    //   width: "10rem",
+    // },
+    // {
+    //   name: "Total Questions",
+    //   selector: (row) => row.total_questions,
+    //   width: "10rem",
+    // },
+    // {
+    //   name: "Student Points",
+    //   selector: (row) => row.student_points,
+    // },
+    // {
+    //   name: "Total Points",
+    //   selector: (row) => row.total_points,
+    // },
     {
       name: "Created On",
       selector: (row) => formatDateToIST(row.created_at),
-      width: "10rem",
     },
     {
       name: "All Results",
@@ -94,6 +93,26 @@ export default function ResultTable() {
       width: "10rem",
     },
   ];
+  const [totalRows, setTotalRows] = useState(0);
+  const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+  const [limit, setLimit] = useQueryState(
+    "limit",
+    parseAsInteger.withDefault(10)
+  );
+  const currentPage = parseInt(page) || 1;
+  const pageSize = parseInt(limit) || 10;
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const handlePageSizeChange = (size) => {
+    setLimit(size); // Reset to page 1 when page size changes
+  };
+
+  useEffect(() => {
+    getResults({ page, limit });
+  }, [page, limit]);
 
   return (
     <div className="rounded">
@@ -116,8 +135,14 @@ export default function ResultTable() {
         <DataTable
           columns={columns}
           data={results}
-          pagination
           progressPending={isLoading}
+          pagination
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationDefaultPage={currentPage}
+          paginationPerPage={pageSize}
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePageSizeChange}
         />
       </div>
     </div>

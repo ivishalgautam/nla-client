@@ -1,5 +1,4 @@
 "use client";
-import { calculateGrade } from "@/app/lib/calculateGrade";
 import { getCookie } from "@/app/lib/cookies";
 import { publicRequest } from "@/app/lib/requestMethods";
 import { formatTime } from "@/app/lib/time";
@@ -11,9 +10,6 @@ const Page = ({ params: { testId } }) => {
   const [duration, setDuration] = useState(0);
   const [countDown, setCountDown] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
-  const [points, setPoints] = useState({
-    totalPoints: null,
-  });
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
@@ -23,33 +19,12 @@ const Page = ({ params: { testId } }) => {
   // console.log({ answers, userAnswers });
 
   async function handleSubmitTest() {
-    let TP = 0;
-    let attempted = 0;
-
-    for (let i = 0; i < answers.length; i++) {
-      if (
-        Object.values(userAnswers)[i] !== undefined &&
-        Object.values(userAnswers)[i] !== ""
-      ) {
-        attempted++;
-      }
-
-      if (String(answers[i]) === String(Object.values(userAnswers)[i])) {
-        TP += 1;
-      }
-    }
-
     try {
       const resp = await publicRequest.post(
         `/results`,
         {
           student_id: getCookie("student_id"),
           test_id: testId,
-          student_points: TP,
-          total_points: points.totalPoints,
-          student_attempted: attempted,
-          total_questions: questions.length,
-          grade: calculateGrade(TP, points.totalPoints, questions.length),
           user_answers: Object.values(userAnswers),
           time_taken: formatTime(countDown),
         },
@@ -113,7 +88,6 @@ const Page = ({ params: { testId } }) => {
         }
 
         setUserAnswers(userAnswersObj);
-        setPoints((prev) => ({ ...prev, totalPoints: data.length * 1 }));
         setIsLoading(false);
       } catch (error) {
         console.log(error);
