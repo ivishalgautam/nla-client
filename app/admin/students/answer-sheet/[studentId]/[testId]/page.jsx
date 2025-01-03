@@ -20,6 +20,8 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
           headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
         }
       );
+
+      console.log({ resp });
       setIsLoading(false);
       setQuestions(resp.data);
       // console.log(resp.data);
