@@ -58,7 +58,7 @@ export default function ResultTable() {
     },
     {
       name: "Level",
-      selector: (row) => row.student_grade,
+      selector: (row) => row.class,
       sortable: true,
     },
     {
