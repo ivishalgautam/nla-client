@@ -57,6 +57,11 @@ export default function ResultTable() {
       sortable: true,
     },
     {
+      name: "Level",
+      selector: (row) => row.student_grade,
+      sortable: true,
+    },
+    {
       name: "Test Name",
       selector: (row) => row.test_name,
       sortable: true,

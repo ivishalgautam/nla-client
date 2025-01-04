@@ -14,11 +14,13 @@ const Page = ({ params: { testId } }) => {
   const [answers, setAnswers] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isTestSubmitting, setIsTestSubmitting] = useState(false);
   const router = useRouter();
 
   // console.log({ answers, userAnswers });
 
   async function handleSubmitTest() {
+    setIsTestSubmitting(true);
     try {
       const resp = await publicRequest.post(
         `/results`,
@@ -37,6 +39,8 @@ const Page = ({ params: { testId } }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsTestSubmitting(false);
     }
   }
 
@@ -208,6 +212,7 @@ const Page = ({ params: { testId } }) => {
           <button
             className="w-full p-2 rounded bg-primary"
             onClick={handleSubmitTest}
+            disabled={isTestSubmitting}
           >
             Submit test
           </button>
