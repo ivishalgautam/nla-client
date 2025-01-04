@@ -55,6 +55,7 @@ export default function ResultTable() {
       Level: row.class,
       Test: row.test_type,
       "Correct Answers": row.student_points,
+      "School name": row.school_name,
       "Time taken": row.time_taken,
     }));
 
@@ -83,6 +84,10 @@ export default function ResultTable() {
     {
       name: "Correct ansewers",
       selector: (row) => row.student_points,
+    },
+    {
+      name: "School Name",
+      selector: (row) => row.school_name,
     },
     {
       name: "Time taken",
