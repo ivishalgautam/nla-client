@@ -214,11 +214,7 @@ export default function StudentTable() {
     {
       name: "Credentials",
       selector: (row) => {
-        return row.credentials_created ? (
-          <button className="bg-primary px-3 py-1 rounded text-white">
-            Already created
-          </button>
-        ) : (
+        return (
           <button
             type="button"
             className="bg-primary px-3 py-1 rounded text-white"

@@ -3,14 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-} from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import Pdf from "./Pdf";
 
 export default function ResultCardMulti({ result, path }) {

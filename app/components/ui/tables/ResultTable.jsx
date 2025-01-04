@@ -7,6 +7,8 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FiExternalLink } from "react-icons/fi";
+import { saveAs } from "file-saver"; // For saving the file
+import Papa from "papaparse"; // Library for CSV conversion
 
 export default function ResultTable() {
   const [results, setResults] = useState([]);
@@ -20,14 +22,23 @@ export default function ResultTable() {
     "type",
     parseAsString.withDefault("olympiad")
   );
-  async function getResults({ page, limit, type }) {
+  const [search, setSearch] = useQueryState(
+    "q",
+    parseAsString
+      .withOptions({ shallow: true, throttleMs: 1000 })
+      .withDefault("")
+  );
+  console.log({ search });
+  const handleSearchInput = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+  };
+  async function getResults({ page, limit, type, q = "" }) {
     setIsLoading(true);
     try {
       const resp = await adminRequest.get(
-        `/results?page=${page}&limit=${limit}&type=${type}`,
-        {
-          headers: { Authorization: `Bearer ${getCookie("admin_token")}` },
-        }
+        `/results?page=${page}&limit=${limit}&type=${type}&q=${q}`,
+        { headers: { Authorization: `Bearer ${getCookie("admin_token")}` } }
       );
       setResults(resp.data.results);
       setTotalRows(resp.data.total);
@@ -38,26 +49,22 @@ export default function ResultTable() {
     }
   }
 
-  function handleSearch(e) {
-    const inputValue = e.target.value.toLowerCase();
+  function downloadCSV() {
+    const csvData = results.map((row) => ({
+      "Student Name": row.fullname,
+      Level: row.class,
+      Test: row.test_type,
+      "Correct Answers": row.student_points,
+      "Time taken": row.time_taken,
+    }));
 
-    if (inputValue === "") {
-      getResults({ page, limit, type });
-    } else {
-      const data = results?.filter((item) =>
-        item.fullname.toLowerCase().includes(inputValue)
-      );
-      setResults(data);
-    }
+    const csvString = Papa.unparse(csvData);
+
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    saveAs(blob, "results.csv");
   }
 
   const columns = [
-    // {
-    //   name: "Id",
-    //   selector: (row, key) => key + 1,
-    //   width: "4rem",
-    //   sortable: true,
-    // },
     {
       name: "Student Name",
       selector: (row) => row.fullname,
@@ -69,32 +76,17 @@ export default function ResultTable() {
       sortable: true,
     },
     {
-      name: "Test Name",
-      selector: (row) => row.test_name,
+      name: "Test",
+      selector: (row) => row.test_type,
       sortable: true,
     },
-    // {
-    //   name: "Questions Attempted",
-    //   selector: (row) => row.student_attempted,
-    //   width: "10rem",
-    // },
-    // {
-    //   name: "Total Questions",
-    //   selector: (row) => row.total_questions,
-    //   width: "10rem",
-    // },
-    // {
-    //   name: "Student Points",
-    //   selector: (row) => row.student_points,
-    // },
-    // {
-    //   name: "Total Points",
-    //   selector: (row) => row.total_points,
-    // },
     {
-      name: "Created On",
-      selector: (row) => formatDateToIST(row.created_at),
-      sortable: true,
+      name: "Correct ansewers",
+      selector: (row) => row.student_points,
+    },
+    {
+      name: "Time taken",
+      selector: (row) => row.time_taken,
     },
     {
       name: "All Results",
@@ -106,6 +98,7 @@ export default function ResultTable() {
       width: "10rem",
     },
   ];
+
   const [totalRows, setTotalRows] = useState(0);
 
   const currentPage = parseInt(page) || 1;
@@ -116,24 +109,26 @@ export default function ResultTable() {
   };
 
   const handlePageSizeChange = (size) => {
-    setLimit(size); // Reset to page 1 when page size changes
+    setLimit(size);
   };
 
   useEffect(() => {
-    getResults({ page, limit, type });
-  }, [page, limit, type]);
+    console.log({ search });
+    getResults({ page, limit, type, q: search });
+  }, [page, limit, type, search]);
 
   return (
     <div className="rounded">
-      <div className="mb-4 flex justify-start gap-4">
+      <div className="mb-4 flex justify-between gap-4">
         <div className="relative">
           <input
             type="text"
-            onChange={(e) => handleSearch(e)}
+            onChange={handleSearchInput}
             placeholder="search"
             name="search"
             className="my-input peer"
             autoComplete="false"
+            value={search}
           />
           <label htmlFor="search" className="my-label">
             Search
@@ -162,6 +157,12 @@ export default function ResultTable() {
             Test type
           </label>
         </div>
+        <button
+          onClick={downloadCSV}
+          className="bg-sky-500 text-white px-4 py-2 rounded shadow hover:bg-sky-600"
+        >
+          Download CSV
+        </button>
       </div>
       <div className="rounded-lg overflow-hidden">
         <DataTable

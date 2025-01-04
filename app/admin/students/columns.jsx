@@ -162,11 +162,7 @@ export const columns = (updateStudent, handleDelete, generateCredentials) => [
     },
     cell: ({ row }) => {
       const val = row.getValue("credentials_created");
-      return val ? (
-        <button className="bg-primary px-3 py-1 rounded text-white">
-          Already created
-        </button>
-      ) : (
+      return (
         <button
           type="button"
           className="bg-primary px-3 py-1 rounded text-white"
