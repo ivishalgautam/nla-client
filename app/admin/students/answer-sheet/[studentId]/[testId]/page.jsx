@@ -9,7 +9,7 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
   const [questions, setQuestions] = useState({});
   const query = useSearchParams();
   const createdAt = query.get("t");
-  //   console.log(questions);
+  // console.log(questions);
 
   async function getAnserSheet(studentId, testId, createdAt) {
     setIsLoading(true);
@@ -21,7 +21,6 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
         }
       );
 
-      console.log({ resp });
       setIsLoading(false);
       setQuestions(resp.data);
       // console.log(resp.data);
@@ -59,8 +58,10 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
                   className={`bg-white shadow rounded-md p-4 flex flex-col items-end justify-between border-2 ${
                     questions.studentAnswers[key] === null
                       ? "border-yellow-500"
-                      : String(answer.trim()) !==
-                        String(questions.studentAnswers[key].trim())
+                      : removeInvisibleChars(String(answer).trim()) !==
+                        removeInvisibleChars(
+                          String(questions.studentAnswers[key]).trim()
+                        )
                       ? "border-red-500"
                       : "border-primary"
                   }`}
@@ -101,4 +102,8 @@ export default function AnswerSheet({ params: { studentId, testId } }) {
       </div>
     </section>
   );
+}
+
+function removeInvisibleChars(str) {
+  return str.replace(/[\u200B-\u200D\uFEFF\u202A-\u202E]/g, "");
 }
