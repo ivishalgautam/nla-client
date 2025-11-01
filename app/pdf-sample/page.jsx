@@ -1,6 +1,6 @@
 "use client";
-import PDFSample from "@/components/pdf-sample";
 import React from "react";
+import PDFSample from "../components/template/pdf-sample";
 
 export default function Page() {
   return <PDFSample />;
