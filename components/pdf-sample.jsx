@@ -33,6 +33,7 @@ export default function PDFSample() {
           )
         }
       </PDFDownloadLink>
+
       <PDFDownloadLink
         document={
           <Pdf
