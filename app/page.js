@@ -3,7 +3,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import Pdf from "./components/template/Pdf";
 
 export default function Home() {
-  return "Hello";
+  // return "Hello";
 
   return (
     <div>
