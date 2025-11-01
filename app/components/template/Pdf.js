@@ -7,10 +7,8 @@ import {
   StyleSheet,
   View,
 } from "@react-pdf/renderer";
-// import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate.jpg";
-// import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate.jpg";
-import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate-1.jpg";
-import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate-1.jpg";
+import AbacusCertificateTemplate from "../../../public/abacus-olympiad-certificate-1.png";
+import VedicCertificateTemplate from "../../../public/vedic-olympiad-certificate-1.png";
 
 const styles = StyleSheet.create({
   title: {
@@ -126,18 +124,17 @@ const Pdf = ({ result }) => {
           <Text
             style={{
               position: "absolute",
-              top: "63.5%",
-              left: "21%",
+              top: result?.subject === "abacus" ? "63%" : "63.5%",
+              left: result?.subject === "abacus" ? "21%" : "42%",
               fontWeight: "600",
               textTransform: "capitalize",
               transform: "translateX(-50%)",
             }}
           >
-            {new Date(result?.held_on).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {new Date(result?.held_on)
+              .toLocaleDateString("en-GB")
+              .split("/")
+              .join(".")}
           </Text>
         </View>
 
