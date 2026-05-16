@@ -16,19 +16,18 @@ export default function ResultTable() {
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const [limit, setLimit] = useQueryState(
     "limit",
-    parseAsInteger.withDefault(10)
+    parseAsInteger.withDefault(10),
   );
   const [type, setType] = useQueryState(
     "type",
-    parseAsString.withDefault("olympiad")
+    parseAsString.withDefault("olympiad"),
   );
   const [search, setSearch] = useQueryState(
     "q",
     parseAsString
       .withOptions({ shallow: true, throttleMs: 1000 })
-      .withDefault("")
+      .withDefault(""),
   );
-  console.log({ search });
   const handleSearchInput = (e) => {
     const value = e.target.value;
     setSearch(value);
@@ -38,7 +37,7 @@ export default function ResultTable() {
     try {
       const resp = await adminRequest.get(
         `/results?page=${page}&limit=${limit}&type=${type}&q=${q}`,
-        { headers: { Authorization: `Bearer ${getCookie("admin_token")}` } }
+        { headers: { Authorization: `Bearer ${getCookie("admin_token")}` } },
       );
       setResults(resp.data.results);
       setTotalRows(resp.data.total);

@@ -36,6 +36,11 @@ const navList = [
     path: "/admin/results",
     icon: <ImStatsDots size={20} />,
   },
+  {
+    name: "Results download",
+    path: "/admin/result-downloader",
+    icon: <ImStatsDots size={20} />,
+  },
 ];
 
 const AdminSidebar = () => {
