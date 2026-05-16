@@ -25,7 +25,7 @@ export default function Page() {
         },
       );
       if (resp?.data?.length > 0) {
-        // console.log(resp.data);
+        console.log("resp.data");
         downloadResultsZip(resp.data);
       } else {
         toast.error("No result found for selected dats.");
